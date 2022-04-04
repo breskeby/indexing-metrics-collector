@@ -1,0 +1,90 @@
+{
+    "mappings" : {
+      "properties" : {
+        "environment" : {
+          "properties" : {
+            "host" : {
+              "type" : "text",
+              "fields" : {
+                "keyword" : {
+                  "type" : "keyword",
+                  "ignore_above" : 256
+                }
+              }
+            },
+            "os" : {
+              "properties" : {
+                "arch" : {
+                  "type" : "text",
+                  "fields" : {
+                    "keyword" : {
+                      "type" : "keyword",
+                      "ignore_above" : 50
+                    }
+                  }
+                },
+                "name" : {
+                  "type" : "text",
+                  "fields" : {
+                    "keyword" : {
+                      "type" : "keyword",
+                      "ignore_above" : 50
+                    }
+                  }
+                },
+                "version" : {
+                  "type" : "text",
+                  "fields" : {
+                    "keyword" : {
+                      "type" : "keyword",
+                      "ignore_above" : 20
+                    }
+                  }
+                }
+              }
+            },
+            "user" : {
+              "properties" : {
+                "name" : {
+                  "type" : "text",
+                  "fields" : {
+                    "keyword" : {
+                      "type" : "keyword",
+                      "ignore_above" : 256
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "indexingReason" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "projectName" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "totalUpdatingTime" : {
+          "type" : "long"
+        },
+        "updatingEnd" : {
+          "type" : "date"
+        },
+        "updatingStart" : {
+          "type" : "date"
+        }
+      }
+    }
+}

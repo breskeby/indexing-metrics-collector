@@ -24,6 +24,13 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation("co.elastic.clients:elasticsearch-java:8.1.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.3")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.3")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.+")
+
+}
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
     pluginName.set(properties("pluginName"))
