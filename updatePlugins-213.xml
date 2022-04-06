@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-The <plugins> element (required) contains the description of the plugins
-available at this repository.
--->
 <plugins>
     <!--
     Each <plugin> element (required) describes one plugin in the repository.
