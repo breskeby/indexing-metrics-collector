@@ -18,7 +18,7 @@
         in the plugin.xml file.
         -->
         <idea-version since-build="213" until-build="213.*"/>
-        <name>index-stats-collector</name>
+        <name>indexing-stats-collector</name>
         <description>
 <![CDATA[
 Allows gathering project scanning & indexing statistics for further analysis by ingesting them into an elasticsearch cluster.

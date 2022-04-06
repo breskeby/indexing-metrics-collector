@@ -1,4 +1,4 @@
-package com.breskeby.idea.plugin.indextracker
+package com.breskeby.idea.plugin.isc
 
 import co.elastic.clients.elasticsearch.ElasticsearchAsyncClient
 import co.elastic.clients.elasticsearch.ElasticsearchClient
@@ -6,7 +6,7 @@ import co.elastic.clients.json.jackson.JacksonJsonpMapper
 import co.elastic.clients.transport.rest_client.RestClientTransport
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import com.breskeby.idea.plugin.indextracker.settings.IndexingTrackerSettingsState
+import com.breskeby.idea.plugin.isc.settings.IscSettingsState
 import org.apache.http.HttpHost
 import org.apache.http.auth.AuthScope
 import org.apache.http.auth.UsernamePasswordCredentials
@@ -14,7 +14,7 @@ import org.apache.http.client.CredentialsProvider
 import org.apache.http.impl.client.BasicCredentialsProvider
 import org.elasticsearch.client.RestClient
 
-class ElasticsearchClientFactory(val settingsState: IndexingTrackerSettingsState) {
+class ElasticsearchClientFactory(val settingsState: IscSettingsState) {
 
     val jacksonJsonpMapper = JacksonJsonpMapper()
     init {

@@ -1,4 +1,4 @@
-package com.breskeby.idea.plugin.indextracker.model
+package com.breskeby.idea.plugin.isc.model
 
 import com.intellij.openapi.util.NlsSafe
 import com.intellij.util.indexing.diagnostic.TimeMillis

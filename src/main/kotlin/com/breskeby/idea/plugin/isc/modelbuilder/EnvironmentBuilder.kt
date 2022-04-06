@@ -1,4 +1,4 @@
-package com.breskeby.idea.plugin.indextracker.modelbuilder
+package com.breskeby.idea.plugin.isc.modelbuilder
 
 import java.net.InetAddress
 import java.security.MessageDigest

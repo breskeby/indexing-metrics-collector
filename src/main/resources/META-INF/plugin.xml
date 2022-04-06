@@ -1,28 +1,28 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.breskeby.idea</id>
-    <name>index-stats-collector</name>
+    <name>indexing-stats-collector</name>
     <vendor>Rene Groeschke (breskeby)</vendor>
 
     <depends>com.intellij.modules.platform</depends>
     <resource-bundle>messages</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <projectIndexingHistoryListener implementation="com.breskeby.idea.plugin.indextracker.IndexHistoryListener"/>
+        <projectIndexingHistoryListener implementation="com.breskeby.idea.plugin.isc.IndexHistoryListener"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.breskeby.idea.plugin.indextracker.settings.IndexingTrackerSettingsState"/>
+        <applicationService serviceImplementation="com.breskeby.idea.plugin.isc.settings.IscSettingsState"/>
     </extensions>
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable
                 parentId="tools"
-                instance="com.breskeby.idea.plugin.indextracker.settings.IndexingTrackerSettingsConfigurable"
+                instance="com.breskeby.idea.plugin.isc.settings.IscSettingsConfigurable"
                 id="org.intellij.sdk.settings.IndexingTrackerSettingsConfigurable"
-                displayName="Indexing Tracker"/>
+                displayName="Indexing Stats Collector"/>
     </extensions>
     <extensions defaultExtensionNs="com.intellij">
-        <notificationGroup id="Indexing Tracker Group"
+        <notificationGroup id="Indexing Stats Collector Group"
                            displayType="BALLOON"
                            key="notification.group.name"/>
     </extensions>

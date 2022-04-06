@@ -1,4 +1,4 @@
-package com.breskeby.idea.plugin.indextracker.settings;
+package com.breskeby.idea.plugin.isc.settings;
 
 import com.intellij.openapi.options.Configurable;
 import org.jetbrains.annotations.Nls;
@@ -9,9 +9,9 @@ import java.util.Arrays;
 /**
  * Provides controller functionality for application settings.
  */
-public class IndexingTrackerSettingsConfigurable implements Configurable {
+public class IscSettingsConfigurable implements Configurable {
 
-    private IndexingTrackerSettingsComponent mySettingsComponent;
+    private IscSettingsComponent mySettingsComponent;
 
     @Nls(capitalization = Nls.Capitalization.Title)
     @Override
@@ -27,13 +27,13 @@ public class IndexingTrackerSettingsConfigurable implements Configurable {
     @Nullable
     @Override
     public JComponent createComponent() {
-        mySettingsComponent = new IndexingTrackerSettingsComponent();
+        mySettingsComponent = new IscSettingsComponent();
         return mySettingsComponent.getPanel();
     }
 
     @Override
     public boolean isModified() {
-        IndexingTrackerSettingsState settings = IndexingTrackerSettingsState.getInstance();
+        IscSettingsState settings = IscSettingsState.getInstance();
         boolean modified = !mySettingsComponent.getElasticsearchHost().equals(settings.elasticsearchHost);
         modified |= mySettingsComponent.getElasticsearchPort().equals(String.valueOf(settings.elasticsearchPort));
         modified |= mySettingsComponent.getElasticsearchUsername().equals(settings.elasticsearchUsername);
@@ -45,7 +45,7 @@ public class IndexingTrackerSettingsConfigurable implements Configurable {
 
     @Override
     public void apply() {
-        IndexingTrackerSettingsState settings = IndexingTrackerSettingsState.getInstance();
+        IscSettingsState settings = IscSettingsState.getInstance();
         settings.elasticsearchHost = mySettingsComponent.getElasticsearchHost();
         settings.elasticsearchPort = Integer.parseInt(mySettingsComponent.getElasticsearchPort());
         settings.elasticsearchUsername = mySettingsComponent.getElasticsearchUsername();
@@ -56,7 +56,7 @@ public class IndexingTrackerSettingsConfigurable implements Configurable {
 
     @Override
     public void reset() {
-        IndexingTrackerSettingsState settings = IndexingTrackerSettingsState.getInstance();
+        IscSettingsState settings = IscSettingsState.getInstance();
         mySettingsComponent.setElasticsearchHost(settings.elasticsearchHost);
         mySettingsComponent.setElasticsearchPort(String.valueOf(settings.elasticsearchPort));
         mySettingsComponent.setElasticsearchUsername(settings.elasticsearchUsername);

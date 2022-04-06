@@ -1,6 +1,6 @@
-package com.breskeby.idea.plugin.indextracker.modelbuilder
+package com.breskeby.idea.plugin.isc.modelbuilder
 
-import com.breskeby.idea.plugin.indextracker.model.SimpleProjectIndexingEvent
+import com.breskeby.idea.plugin.isc.model.SimpleProjectIndexingEvent
 import com.intellij.openapi.util.NlsSafe
 import com.intellij.util.indexing.diagnostic.TimeMillis
 

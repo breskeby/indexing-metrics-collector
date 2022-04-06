@@ -1,4 +1,4 @@
-package com.breskeby.idea.plugin.indextracker.settings;
+package com.breskeby.idea.plugin.isc.settings;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
         name = "com.breskeby.ideaindextracker.settings",
         storages = @Storage("IndexingTrackerPlugin.xml")
 )
-public class IndexingTrackerSettingsState implements PersistentStateComponent<IndexingTrackerSettingsState> {
+public class IscSettingsState implements PersistentStateComponent<IscSettingsState> {
 
     // TODO Add customizable es index name
     public String elasticsearchHost = "";
@@ -28,18 +28,18 @@ public class IndexingTrackerSettingsState implements PersistentStateComponent<In
     public boolean anonymize = true;
 //    public boolean detailedLogging = false;
 
-    public static IndexingTrackerSettingsState getInstance() {
-        return ApplicationManager.getApplication().getService(IndexingTrackerSettingsState.class);
+    public static IscSettingsState getInstance() {
+        return ApplicationManager.getApplication().getService(IscSettingsState.class);
     }
 
     @Nullable
     @Override
-    public IndexingTrackerSettingsState getState() {
+    public IscSettingsState getState() {
         return this;
     }
 
     @Override
-    public void loadState(@NotNull IndexingTrackerSettingsState state) {
+    public void loadState(@NotNull IscSettingsState state) {
         XmlSerializerUtil.copyBean(state, this);
     }
 

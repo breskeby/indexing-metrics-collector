@@ -28,8 +28,8 @@
 <!-- Plugin description -->
 Allows gathering project scanning & indexing statistics for further analysis by ingesting them into an elasticsearch cluster.
 
-* [Project Home](https://github.com/breskeby/idea-index-tracker)
-* [Issue Tracker](https://github.com/breskeby/idea-index-tracker/issues)
+* [Project Home](https://github.com/breskeby/indexing-stats-collector)
+* [Issue Tracker](https://github.com/breskeby/indexing-stats-collector/issues)
 
 <!-- Plugin description end -->
 
@@ -44,7 +44,7 @@ Allows gathering project scanning & indexing statistics for further analysis by 
   
 - Manually:
 
-  Download the [latest release](https://github.com/breskeby/idea-index-tracker/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/breskeby/indexing-stats-collector/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 

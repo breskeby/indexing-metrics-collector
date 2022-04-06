@@ -1,4 +1,4 @@
-package com.breskeby.idea.plugin.indextracker.settings;
+package com.breskeby.idea.plugin.isc.settings;
 
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 /**
  * Supports creating and managing a {@link JPanel} for the Settings Dialog.
  */
-public class IndexingTrackerSettingsComponent {
+public class IscSettingsComponent {
 
     private final JPanel myMainPanel;
     private final JBTextField elasticsearchHost = new JBTextField();
@@ -23,7 +23,7 @@ public class IndexingTrackerSettingsComponent {
     private final JBCheckBox detailedLogging = new JBCheckBox("Detailed logging");
     private final JBCheckBox anonymize = new JBCheckBox("Anonymize user data");
 
-    public IndexingTrackerSettingsComponent() {
+    public IscSettingsComponent() {
 //        JBComponent jbComponent = JBComponent();
         myMainPanel = FormBuilder.createFormBuilder()
 

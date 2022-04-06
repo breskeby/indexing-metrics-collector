@@ -1,13 +1,13 @@
-package com.breskeby.idea.plugin.indextracker
+package com.breskeby.idea.plugin.isc
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient
 import co.elastic.clients.elasticsearch._types.ElasticsearchException
 import co.elastic.clients.elasticsearch.core.IndexRequest
 import co.elastic.clients.elasticsearch.indices.CreateIndexRequest
 import co.elastic.clients.elasticsearch.indices.ExistsRequest
-import com.breskeby.idea.plugin.indextracker.model.SimpleProjectIndexingEvent
-import com.breskeby.idea.plugin.indextracker.modelbuilder.SimpleProjectIndexingEventModelBuilder
-import com.breskeby.idea.plugin.indextracker.settings.IndexingTrackerSettingsState
+import com.breskeby.idea.plugin.isc.model.SimpleProjectIndexingEvent
+import com.breskeby.idea.plugin.isc.modelbuilder.SimpleProjectIndexingEventModelBuilder
+import com.breskeby.idea.plugin.isc.settings.IscSettingsState
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationGroup
 import com.intellij.notification.NotificationGroupManager
@@ -24,7 +24,7 @@ private const val ES_SIMPLE_PROJECT_INDEXING_INDEX_NAME = "idea-indexing"
 @org.jetbrains.annotations.ApiStatus.Internal
 class IndexHistoryListener : ProjectIndexingHistoryListener {
 
-    private val settingsState = IndexingTrackerSettingsState.getInstance()
+    private val settingsState = IscSettingsState.getInstance()
     private val elasticsearchClientFactory = ElasticsearchClientFactory(settingsState)
     private var initialized = false
 
@@ -112,7 +112,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
     }
 
     private fun sentNotification(project: Project, notficationAction: (group: NotificationGroup) -> Notification) {
-        notficationAction.invoke(NotificationGroupManager.getInstance().getNotificationGroup("Indexing Tracker Group"))
+        notficationAction.invoke(NotificationGroupManager.getInstance().getNotificationGroup("Indexing Stats Collector Group"))
             .notify(project)
     }
 
