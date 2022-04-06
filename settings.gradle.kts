@@ -1,1 +1,1 @@
-rootProject.name = "idea-index-tracker"
+rootProject.name = "indexing-stats-collector"
