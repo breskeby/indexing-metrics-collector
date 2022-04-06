@@ -24,7 +24,7 @@ private const val ES_SIMPLE_PROJECT_INDEXING_INDEX_NAME = "idea-indexing"
 @org.jetbrains.annotations.ApiStatus.Internal
 class IndexHistoryListener : ProjectIndexingHistoryListener {
 
-    private val settingsState = IscSettingsState.getInstance()
+    private val settingsState = IscSettingsState.instance
     private val elasticsearchClientFactory = ElasticsearchClientFactory(settingsState)
     private var initialized = false
 
