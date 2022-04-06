@@ -20,13 +20,20 @@ import javax.annotation.Nullable;
 )
 public class IscSettingsState implements PersistentStateComponent<IscSettingsState> {
 
+
     // TODO Add customizable es index name
     public String elasticsearchHost = "";
     public int elasticsearchPort = 9243;
+    public boolean anonymize = true;
+
     public String elasticsearchUsername = "";
     public String elasticsearchPassword = "";
-    public boolean anonymize = true;
-    public boolean withAuthentication = false;
+
+    public String elasticsearchAccessToken = "";
+    public String elasticsearchApiKey = "";
+    public String elasticsearchApiSecret = "";
+
+    public AuthType authType = AuthType.NO_AUTH;
 
     public static IscSettingsState getInstance() {
         return ApplicationManager.getApplication().getService(IscSettingsState.class);
@@ -43,4 +50,11 @@ public class IscSettingsState implements PersistentStateComponent<IscSettingsSta
         XmlSerializerUtil.copyBean(state, this);
     }
 
+    public enum AuthType {
+        NO_AUTH,
+        BASIC_AUTH,
+        ACCESS_TOKEN_AUTH,
+        API_KEYS_AUTH;
+    }
 }
+
