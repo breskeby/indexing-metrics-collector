@@ -1,6 +1,5 @@
 package com.breskeby.idea.plugin.isc.settings;
 
-import com.intellij.ui.SeparatorComponent;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBPasswordField;

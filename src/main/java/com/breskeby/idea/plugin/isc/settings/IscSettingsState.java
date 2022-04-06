@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
  */
 @State(
         name = "com.breskeby.ideaindextracker.settings",
-        storages = @Storage("IndexingTrackerPlugin.xml")
+        storages = @Storage("IndexingStatsCollectorPlugin.xml")
 )
 public class IscSettingsState implements PersistentStateComponent<IscSettingsState> {
 
