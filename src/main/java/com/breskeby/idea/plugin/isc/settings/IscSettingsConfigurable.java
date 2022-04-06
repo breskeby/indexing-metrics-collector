@@ -37,6 +37,7 @@ public class IscSettingsConfigurable implements Configurable {
         boolean modified = !mySettingsComponent.getElasticsearchHost().equals(settings.elasticsearchHost);
         modified |= mySettingsComponent.getElasticsearchPort().equals(String.valueOf(settings.elasticsearchPort));
         modified |= mySettingsComponent.getElasticsearchUsername().equals(settings.elasticsearchUsername);
+        modified |= mySettingsComponent.getWithAuthentication() == settings.withAuthentication;
         modified |= Arrays.equals(mySettingsComponent.getElasticsearchPassword(), settings.elasticsearchPassword.toCharArray());
 //        modified |= mySettingsComponent.getDetailedLogging() != settings.detailedLogging;
         modified |= mySettingsComponent.getAnonymize() != settings.anonymize;
@@ -50,7 +51,7 @@ public class IscSettingsConfigurable implements Configurable {
         settings.elasticsearchPort = Integer.parseInt(mySettingsComponent.getElasticsearchPort());
         settings.elasticsearchUsername = mySettingsComponent.getElasticsearchUsername();
         settings.elasticsearchPassword = String.valueOf(mySettingsComponent.getElasticsearchPassword());
-//        settings.detailedLogging = mySettingsComponent.getDetailedLogging();
+        settings.withAuthentication = mySettingsComponent.getWithAuthentication();
         settings.anonymize = mySettingsComponent.getAnonymize();
     }
 
@@ -61,7 +62,9 @@ public class IscSettingsConfigurable implements Configurable {
         mySettingsComponent.setElasticsearchPort(String.valueOf(settings.elasticsearchPort));
         mySettingsComponent.setElasticsearchUsername(settings.elasticsearchUsername);
         mySettingsComponent.setElasticsearchPassword(String.valueOf(settings.elasticsearchPassword));
-//        mySettingsComponent.setDetailedLogging(settings.detailedLogging);
+        mySettingsComponent.setElasticsearchPassword(String.valueOf(settings.elasticsearchPassword));
+        mySettingsComponent.setElasticsearchPassword(String.valueOf(settings.elasticsearchPassword));
+        mySettingsComponent.setWithAuthentication(settings.withAuthentication);
         mySettingsComponent.setAnonymize(settings.anonymize);
     }
 

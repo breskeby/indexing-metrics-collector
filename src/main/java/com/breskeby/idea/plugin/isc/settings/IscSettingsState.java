@@ -26,7 +26,7 @@ public class IscSettingsState implements PersistentStateComponent<IscSettingsSta
     public String elasticsearchUsername = "";
     public String elasticsearchPassword = "";
     public boolean anonymize = true;
-//    public boolean detailedLogging = false;
+    public boolean withAuthentication = false;
 
     public static IscSettingsState getInstance() {
         return ApplicationManager.getApplication().getService(IscSettingsState.class);

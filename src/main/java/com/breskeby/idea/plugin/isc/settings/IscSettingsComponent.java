@@ -3,11 +3,14 @@ package com.breskeby.idea.plugin.isc.settings;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBPasswordField;
+import com.intellij.ui.components.JBRadioButton;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.util.ui.FormBuilder;
+import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  * Supports creating and managing a {@link JPanel} for the Settings Dialog.
@@ -18,23 +21,46 @@ public class IscSettingsComponent {
     private final JBTextField elasticsearchHost = new JBTextField();
     private final JBTextField elasticsearchPort = new JBTextField();
     private final JBTextField elasticsearchUsername = new JBTextField();
+    private final JBLabel usernameLabel = new JBLabel("Elasticsearch username: ");
+    private final JBLabel userPasswordLabel = new JBLabel("Elasticsearch password: ");
+
     private final JBPasswordField elasticsearchPassword = new JBPasswordField();
 
     private final JBCheckBox detailedLogging = new JBCheckBox("Detailed logging");
     private final JBCheckBox anonymize = new JBCheckBox("Anonymize user data");
 
+    private final JBRadioButton noAuth = new JBRadioButton("No authentication");
+    private final JBRadioButton basicAuth = new JBRadioButton("Basic Authentication");
+
     public IscSettingsComponent() {
-//        JBComponent jbComponent = JBComponent();
+        ButtonGroup group = new ButtonGroup();
+
+        noAuth.addActionListener(e -> disableAuthentication(noAuth.isSelected()));
+        basicAuth.addActionListener(e -> disableAuthentication(noAuth.isSelected()));
+        group.add(noAuth);
+        group.add(basicAuth);
+
         myMainPanel = FormBuilder.createFormBuilder()
 
                 .addLabeledComponent(new JBLabel("Elasticsearch host: "), elasticsearchHost, 1, false)
                 .addLabeledComponent(new JBLabel("Elasticsearch port: "), elasticsearchPort, 1, false)
-                .addLabeledComponent(new JBLabel("Elasticsearch username: "), elasticsearchUsername, 1, false)
-                .addLabeledComponent(new JBLabel("Elasticsearch password: "), elasticsearchPassword, 1, false)
-//                .addComponent(detailedLogging, 1)
+                .addComponent(noAuth, 1)
+                .addComponent(new JLabel(""), 1)
+
+                .addComponent(basicAuth, 1)
+                .addLabeledComponent(usernameLabel, elasticsearchUsername, 1, false)
+                .addLabeledComponent(userPasswordLabel, elasticsearchPassword, 1, false)
                 .addComponent(anonymize, 1)
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
+        disableAuthentication(noAuth.isSelected());
+    }
+
+    private void disableAuthentication(boolean noAuthSelected) {
+        elasticsearchUsername.setEnabled(noAuthSelected == false);
+        elasticsearchPassword.setEnabled(noAuthSelected == false);
+        usernameLabel.setEnabled(noAuthSelected == false);
+        userPasswordLabel.setEnabled(noAuthSelected == false);
     }
 
     public JPanel getPanel() {
@@ -97,4 +123,17 @@ public class IscSettingsComponent {
         anonymize.setSelected(newStatus);
     }
 
+    public boolean getWithAuthentication() {
+        return basicAuth.isSelected();
+    }
+
+    public void setWithAuthentication(boolean withAuth) {
+        if(withAuth) {
+            basicAuth.setSelected(true);
+            noAuth.setSelected(false);
+        } else {
+            basicAuth.setSelected(false);
+            noAuth.setSelected(true);
+        }
+    }
 }

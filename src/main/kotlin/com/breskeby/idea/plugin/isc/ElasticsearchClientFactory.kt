@@ -34,7 +34,7 @@ class ElasticsearchClientFactory(val settingsState: IscSettingsState) {
         val restClientBuilder = RestClient.builder(
             HttpHost(settingsState.elasticsearchHost, settingsState.elasticsearchPort, "https")
         )
-        if (!settingsState.elasticsearchUsername.isNullOrBlank() && !settingsState.elasticsearchPassword.isNullOrBlank()) {
+        if (settingsState.withAuthentication) {
             val credentialsProvider: CredentialsProvider = BasicCredentialsProvider()
             credentialsProvider.setCredentials(
                 AuthScope.ANY,
