@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The <plugins> element (required) contains the description of the plugins
+available at this repository.
+-->
+<plugins>
+    <!--
+    Each <plugin> element (required) describes one plugin in the repository.
+    Attributes:
+     - "id" (required) - used by JetBrains IDEs to uniquely identify a plugin.
+       Must match <id> in the plugin.xml file.
+     - "url" (required) - URL to download the plugin JAR/ZIP file. Must be HTTPS.
+     - "version" (required) - version of this plugin. Must match <version>
+       in the plugin.xml file.
+    -->
+    <plugin
+            id="com.github.breskeby.ideaindextracker"
+            url="https://github.com/breskeby/idea-index-tracker/releases/download/v0.0.1/idea-index-tracker-0.0.1.zip"
+            version="0.0.1">
+        <!--
+        The <idea-version> element (required) must match the same element
+        in the plugin.xml file.
+        -->
+        <idea-version since-build="213" until-build="213.*"/>
+    </plugin>
+</plugins>
