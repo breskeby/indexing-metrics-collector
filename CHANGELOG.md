@@ -9,7 +9,7 @@
 - Initial Release
 
 ## [1.0.0] 2022-04-07
-### New
+### Added
 - Rename to indexing stats collector
 - Add more authentication options
   - [Access token authentication](https://github.com/breskeby/indexing-stats-collector/issues/3)
