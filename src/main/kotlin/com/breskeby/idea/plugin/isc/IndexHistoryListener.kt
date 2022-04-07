@@ -19,8 +19,6 @@ import com.intellij.util.indexing.diagnostic.ProjectIndexingHistoryListener
 import com.intellij.util.indexing.diagnostic.dto.toMillis
 import java.io.InputStream
 
-private const val ES_SIMPLE_PROJECT_INDEXING_INDEX_NAME = "idea-indexing"
-
 @org.jetbrains.annotations.ApiStatus.Internal
 class IndexHistoryListener : ProjectIndexingHistoryListener {
 
@@ -32,11 +30,12 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         val project = projectIndexingHistory.project
         runBackgroundableTask("Upload indexing stats", project) {
             if (validBasicConfiguration(project)) {
+                val index = settingsState.elasticsearchIndex
                 withWarningNotifications("Error publishing Indexing stats", project) {
                     val client = elasticsearchClientFactory.newElasticsearchClient()
-                    maybeInitializeIndex(project, client)
+                    maybeInitializeIndex(project, client, index)
                     client.index { builder: IndexRequest.Builder<SimpleProjectIndexingEvent> ->
-                        builder.index(ES_SIMPLE_PROJECT_INDEXING_INDEX_NAME)
+                        builder.index(index)
                             .document(
                                 SimpleProjectIndexingEventModelBuilder.builder()
                                     .withEnvironment()
@@ -57,10 +56,11 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     private fun maybeInitializeIndex(
         project: Project,
-        client: ElasticsearchClient
+        client: ElasticsearchClient,
+        index: String
     ) {
         if (initialized == false) {
-            maybeCreateIndex(project, client)
+            maybeCreateIndex(project, client, index)
             initialized = true
         }
     }
@@ -74,29 +74,29 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         }
     }
 
-    private fun maybeCreateIndex(project: Project, client: ElasticsearchClient) {
-        if (!elasticsearchIndexExists(client)) {
-            informAboutIndexCreating(project)
-            createIndexWithPredefinedMapping(client)
+    private fun maybeCreateIndex(project: Project, client: ElasticsearchClient, index: String) {
+        if (!elasticsearchIndexExists(client, index)) {
+            informAboutIndexCreating(project, index)
+            createIndexWithPredefinedMapping(client, index)
         }
     }
 
-    private fun createIndexWithPredefinedMapping(client: ElasticsearchClient) {
+    private fun createIndexWithPredefinedMapping(client: ElasticsearchClient, index: String) {
         val input: InputStream = this.javaClass.getResourceAsStream("/idea-indexing-mapping.json")
         client.indices().create(CreateIndexRequest.of { b: CreateIndexRequest.Builder ->
-            b.index(ES_SIMPLE_PROJECT_INDEXING_INDEX_NAME).withJson(input)
+            b.index(index).withJson(input)
         }).acknowledged()
     }
 
-    private fun elasticsearchIndexExists(client: ElasticsearchClient) =
+    private fun elasticsearchIndexExists(client: ElasticsearchClient, index: String) =
         client.indices().exists(
-            ExistsRequest.of { b: ExistsRequest.Builder -> b.index(ES_SIMPLE_PROJECT_INDEXING_INDEX_NAME) }
+            ExistsRequest.of { b: ExistsRequest.Builder -> b.index(index) }
         ).value()
 
-    private fun informAboutIndexCreating(project: Project) {
+    private fun informAboutIndexCreating(project: Project, index: String) {
         sentNotification(project) {
             it.createNotification(
-                "Creating elasticsearch index $ES_SIMPLE_PROJECT_INDEXING_INDEX_NAME",
+                "Creating elasticsearch index $index",
                 NotificationType.INFORMATION
             )
         }

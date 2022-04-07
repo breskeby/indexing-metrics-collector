@@ -17,6 +17,7 @@ class IscSettingsComponent {
     }
 
     val panel: JPanel
+    private val elasticsearchIndex = JBTextField()
     private val elasticsearchHost = JBTextField()
     private val elasticsearchPort = JBTextField()
     private val elasticsearchUsername = JBTextField()
@@ -47,6 +48,7 @@ class IscSettingsComponent {
         group.add(accessTokenAuth)
         group.add(apiKeysAuth)
         panel = FormBuilder.createFormBuilder()
+            .addLabeledComponent(JBLabel("Elasticsearch index: "), elasticsearchIndex, 1, false)
             .addLabeledComponent(JBLabel("Elasticsearch host: "), elasticsearchHost, 1, false)
             .addLabeledComponent(JBLabel("Elasticsearch port: "), elasticsearchPort, 1, false)
             .addComponent(anonymize, 1)
@@ -141,6 +143,14 @@ class IscSettingsComponent {
 
     fun setElasticsearchPort(newText: String) {
         elasticsearchPort.text = newText
+    }
+
+    fun getElasticsearchIndex(): String {
+        return elasticsearchIndex.text
+    }
+
+    fun setElasticsearchIndex(newText: String) {
+        elasticsearchIndex.text = newText
     }
 
     fun getElasticsearchUsername(): String {

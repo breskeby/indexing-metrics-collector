@@ -29,7 +29,8 @@ class IscSettingsConfigurable : Configurable {
 
     override fun isModified(): Boolean {
         val settings = IscSettingsState.instance
-        var modified = mySettingsComponent?.getElasticsearchHost() != settings.elasticsearchHost
+        var modified = mySettingsComponent?.getElasticsearchIndex() != settings.elasticsearchIndex
+        modified = modified or (mySettingsComponent?.getElasticsearchHost() == settings.elasticsearchHost)
         modified = modified or (mySettingsComponent?.getElasticsearchPort() == settings.elasticsearchPort.toString())
         modified = modified or (mySettingsComponent?.getElasticsearchUsername()== settings.elasticsearchUsername)
         modified = modified or (mySettingsComponent?.getElasticsearchAccessToken() == settings.elasticsearchAccessToken)
@@ -46,6 +47,7 @@ class IscSettingsConfigurable : Configurable {
     override fun apply() {
         val settings = IscSettingsState.instance
         val component = mySettingsComponent!!
+        settings.elasticsearchIndex = component.getElasticsearchIndex()
         settings.elasticsearchHost = component.getElasticsearchHost()
         settings.elasticsearchPort = component.getElasticsearchPort().toInt()
         settings.elasticsearchUsername = component.getElasticsearchUsername()
@@ -61,6 +63,7 @@ class IscSettingsConfigurable : Configurable {
         val settings = IscSettingsState.instance
         val component = mySettingsComponent!!
 
+        component.setElasticsearchIndex(settings.elasticsearchIndex)
         component.setElasticsearchHost(settings.elasticsearchHost)
         component.setElasticsearchPort(settings.elasticsearchPort.toString())
         component.setElasticsearchUsername(settings.elasticsearchUsername)

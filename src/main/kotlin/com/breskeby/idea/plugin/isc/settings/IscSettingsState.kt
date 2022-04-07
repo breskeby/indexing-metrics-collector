@@ -14,6 +14,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
  */
 @State(name = "com.breskeby.ideaindextracker.settings", storages = [Storage("IndexingStatsCollectorPlugin.xml")])
 class IscSettingsState : PersistentStateComponent<IscSettingsState?> {
+    var elasticsearchIndex = "idea-indexing"
     var elasticsearchHost = ""
     var elasticsearchPort = 9243
     var anonymize = true
