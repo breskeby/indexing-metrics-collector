@@ -2,7 +2,13 @@
 
 # indexing stats-collector Changelog
 
-## [1.0.0]
+## [Unreleased]
+
+## [0.0.1] 2022-04-05
+### Added
+- Initial Release
+
+## [1.0.0] 2022-04-07
 ### New
 - Rename to indexing stats collector
 - Add more authentication options
