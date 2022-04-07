@@ -11,8 +11,8 @@
     -->
     <plugin
             id="com.github.breskeby.ideaindextracker"
-            url="https://github.com/breskeby/idea-index-tracker/releases/download/v0.0.1/idea-index-tracker-0.0.1.zip"
-            version="0.0.1">
+            url="https://github.com/breskeby/indexing-stats-collector/releases/download/v1.0.0/indexing-stats-collector-1.0.0.zip"
+            version="1.0.0">
         <!--
         The <idea-version> element (required) must match the same element
         in the plugin.xml file.
@@ -23,8 +23,8 @@
 <![CDATA[
 Allows gathering project scanning & indexing statistics for further analysis by ingesting them into an elasticsearch cluster.
 
-* [Project Home](https://github.com/breskeby/idea-index-tracker)
-* [Issue Tracker](https://github.com/breskeby/idea-index-tracker/issues)
+* [Project Home](https://github.com/breskeby/indexing-stats-collector)
+* [Issue Tracker](https://github.com/breskeby/indexing-stats-collector/issues)
 ]]>
         </description>
         <change-notes>

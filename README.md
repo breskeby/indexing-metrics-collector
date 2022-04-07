@@ -1,4 +1,4 @@
-# idea-index-tracker
+# indexing-stats-collector
 
 [//]: # ()
 [//]: # (![Build]&#40;https://github.com/breskeby/idea-index-tracker/workflows/Build/badge.svg&#41;)
