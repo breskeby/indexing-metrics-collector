@@ -24,22 +24,17 @@ private const val ES_SIMPLE_PROJECT_INDEXING_INDEX_NAME = "idea-indexing"
 @org.jetbrains.annotations.ApiStatus.Internal
 class IndexHistoryListener : ProjectIndexingHistoryListener {
 
-    private val settingsState = IscSettingsState.getInstance()
+    private val settingsState = IscSettingsState.instance
     private val elasticsearchClientFactory = ElasticsearchClientFactory(settingsState)
     private var initialized = false
 
     override fun onFinishedIndexing(projectIndexingHistory: ProjectIndexingHistory) {
         val project = projectIndexingHistory.project
-        if (checkBasicConfiguration(project)) {
-            runBackgroundableTask("Upload indexing stats", project) {
+        runBackgroundableTask("Upload indexing stats", project) {
+            if (validBasicConfiguration(project)) {
                 withWarningNotifications("Error publishing Indexing stats", project) {
                     val client = elasticsearchClientFactory.newElasticsearchClient()
-
-                    if (initialized == false) {
-                        maybeCreateIndex(project, client)
-                        initialized = true
-                    }
-
+                    maybeInitializeIndex(project, client)
                     client.index { builder: IndexRequest.Builder<SimpleProjectIndexingEvent> ->
                         builder.index(ES_SIMPLE_PROJECT_INDEXING_INDEX_NAME)
                             .document(
@@ -60,7 +55,17 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         }
     }
 
-    private fun checkBasicConfiguration(project: Project): Boolean {
+    private fun maybeInitializeIndex(
+        project: Project,
+        client: ElasticsearchClient
+    ) {
+        if (initialized == false) {
+            maybeCreateIndex(project, client)
+            initialized = true
+        }
+    }
+
+    private fun validBasicConfiguration(project: Project): Boolean {
         return if (!settingsState.elasticsearchHost.isNullOrBlank() && settingsState.elasticsearchPort > 1) {
             true
         } else {

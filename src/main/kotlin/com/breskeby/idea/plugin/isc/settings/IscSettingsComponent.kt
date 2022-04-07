@@ -1,0 +1,216 @@
+package com.breskeby.idea.plugin.isc.settings
+
+import com.intellij.ui.components.*
+import com.intellij.util.ui.FormBuilder
+import javax.swing.ButtonGroup
+import javax.swing.ButtonModel
+import javax.swing.JComponent
+import javax.swing.JPanel
+
+
+/**
+ * Supports creating and managing a [JPanel] for the Settings Dialog.
+ */
+class IscSettingsComponent {
+    companion object {
+        private const val LEFT_INDENT = 25
+    }
+
+    val panel: JPanel
+    private val elasticsearchHost = JBTextField()
+    private val elasticsearchPort = JBTextField()
+    private val elasticsearchUsername = JBTextField()
+    private val elasticsearchPassword = JBPasswordField()
+    private val elasticsearchAccessToken = JBTextField()
+    private val elasticsearchApiKey = JBTextField()
+    private val elasticsearchApiSecret = JBPasswordField()
+    private val anonymize = JBCheckBox("Anonymize user data")
+    private val noAuth = JBRadioButton("No authentication")
+    private val basicAuth = JBRadioButton("Basic Authentication")
+    private val accessTokenAuth = JBRadioButton("Access Token Authentication")
+    private val apiKeysAuth = JBRadioButton("API Key Authentication")
+    private val group = ButtonGroup()
+    private val usernameLabel = JBLabel("Elasticsearch username: ")
+    private val userPasswordLabel = JBLabel("Elasticsearch password: ")
+    private val accessTokenLabel = JBLabel("Elasticsearch Access Token: ")
+    private val apiKeyLabel = JBLabel("Elasticsearch API Key: ")
+    private val apiSecretLabel = JBLabel("Elasticsearch API Secret: ")
+
+    init {
+        anonymize.toolTipText = "hashes system user and host name before uploading"
+        noAuth.addActionListener { configureAuth(noAuth.model) }
+        basicAuth.addActionListener { configureAuth(basicAuth.model) }
+        accessTokenAuth.addActionListener { configureAuth(accessTokenAuth.model) }
+        apiKeysAuth.addActionListener { configureAuth(apiKeysAuth.model) }
+        group.add(noAuth)
+        group.add(basicAuth)
+        group.add(accessTokenAuth)
+        group.add(apiKeysAuth)
+        panel = FormBuilder.createFormBuilder()
+            .addLabeledComponent(JBLabel("Elasticsearch host: "), elasticsearchHost, 1, false)
+            .addLabeledComponent(JBLabel("Elasticsearch port: "), elasticsearchPort, 1, false)
+            .addComponent(anonymize, 1)
+            .addSeparator(10)
+            .addComponent(noAuth, 1)
+            .addComponent(basicAuth, 1)
+            .setFormLeftIndent(LEFT_INDENT)
+            .addLabeledComponent(usernameLabel, elasticsearchUsername, 1, false)
+            .addLabeledComponent(userPasswordLabel, elasticsearchPassword, 1, false)
+            .setFormLeftIndent(0)
+            .addComponent(accessTokenAuth, 1)
+            .setFormLeftIndent(LEFT_INDENT)
+            .addLabeledComponent(accessTokenLabel, elasticsearchAccessToken, 1, false)
+            .setFormLeftIndent(0)
+            .addComponent(apiKeysAuth, 1)
+            .setFormLeftIndent(LEFT_INDENT)
+            .addLabeledComponent(apiKeyLabel, elasticsearchApiKey, 1, false)
+            .addLabeledComponent(apiSecretLabel, elasticsearchApiSecret, 1, false)
+            .addComponentFillVertically(JPanel(), 0)
+            .panel
+
+        configureAuth(if(group.selection == null) noAuth.model else group.selection)
+    }
+
+    private fun configureAuth(source: ButtonModel) {
+        if (source === noAuth.model) {
+            noAuth.isSelected = true
+            elasticsearchUsername.isEnabled = false
+            elasticsearchPassword.isEnabled = false
+            usernameLabel.isEnabled = false
+            userPasswordLabel.isEnabled = false
+            accessTokenLabel.isEnabled = false
+            elasticsearchAccessToken.isEnabled = false
+            apiKeyLabel.isEnabled = false
+            apiSecretLabel.isEnabled = false
+            elasticsearchApiKey.isEnabled = false
+            elasticsearchApiSecret.isEnabled = false
+        } else if (source === basicAuth.model) {
+            basicAuth.isSelected = true
+            elasticsearchUsername.isEnabled = true
+            elasticsearchPassword.isEnabled = true
+            usernameLabel.isEnabled = true
+            userPasswordLabel.isEnabled = true
+            accessTokenLabel.isEnabled = false
+            elasticsearchAccessToken.isEnabled = false
+            apiKeyLabel.isEnabled = false
+            apiSecretLabel.isEnabled = false
+            elasticsearchApiKey.isEnabled = false
+            elasticsearchApiSecret.isEnabled = false
+        } else if (source === accessTokenAuth.model) {
+            elasticsearchUsername.isEnabled = false
+            elasticsearchPassword.isEnabled = false
+            usernameLabel.isEnabled = false
+            userPasswordLabel.isEnabled = false
+            apiKeyLabel.isEnabled = false
+            apiSecretLabel.isEnabled = false
+            elasticsearchApiKey.isEnabled = false
+            elasticsearchApiSecret.isEnabled = false
+            elasticsearchAccessToken.isEnabled = true
+            accessTokenAuth.isSelected = true
+            accessTokenLabel.isEnabled = true
+            accessTokenAuth.isEnabled = true
+        } else if (source === apiKeysAuth.model) {
+            apiKeysAuth.isSelected = true
+            apiKeyLabel.isEnabled = true
+            apiSecretLabel.isEnabled = true
+            elasticsearchApiKey.isEnabled = true
+            elasticsearchApiSecret.isEnabled = true
+            elasticsearchUsername.isEnabled = false
+            elasticsearchPassword.isEnabled = false
+            usernameLabel.isEnabled = false
+            userPasswordLabel.isEnabled = false
+            elasticsearchAccessToken.isEnabled = false
+            accessTokenLabel.isEnabled = false
+        }
+    }
+
+    val preferredFocusedComponent: JComponent
+        get() = elasticsearchHost
+
+    fun getElasticsearchHost(): String {
+        return elasticsearchHost.text
+    }
+
+    fun setElasticsearchHost(newText: String) {
+        elasticsearchHost.text = newText
+    }
+
+    fun getElasticsearchPort(): String {
+        return elasticsearchPort.text
+    }
+
+    fun setElasticsearchPort(newText: String) {
+        elasticsearchPort.text = newText
+    }
+
+    fun getElasticsearchUsername(): String {
+        return elasticsearchUsername.text
+    }
+
+    fun setElasticsearchUsername(newText: String) {
+        elasticsearchUsername.text = newText
+    }
+
+    fun getElasticsearchPassword(): CharArray {
+        return elasticsearchPassword.password
+    }
+
+    fun setElasticsearchPassword(newText: String) {
+        elasticsearchPassword.text = newText
+    }
+
+    fun getAnonymize(): Boolean {
+        return anonymize.isSelected
+    }
+
+    fun setAnonymize(newStatus: Boolean) {
+        anonymize.isSelected = newStatus
+    }
+
+    var authType: IscSettingsState.AuthType
+        get() {
+            val selection = group.selection
+            return if (selection === noAuth.model) {
+                IscSettingsState.AuthType.NO_AUTH
+            } else if (selection === basicAuth.model) {
+                IscSettingsState.AuthType.BASIC_AUTH
+            } else if (selection === accessTokenAuth.model) {
+                IscSettingsState.AuthType.ACCESS_TOKEN_AUTH
+            } else {
+                IscSettingsState.AuthType.API_KEYS_AUTH
+            }
+        }
+        set(authType) {
+            when (authType) {
+                IscSettingsState.AuthType.NO_AUTH -> configureAuth(noAuth.model)
+                IscSettingsState.AuthType.BASIC_AUTH -> configureAuth(basicAuth.model)
+                IscSettingsState.AuthType.ACCESS_TOKEN_AUTH -> configureAuth(accessTokenAuth.model)
+                IscSettingsState.AuthType.API_KEYS_AUTH -> configureAuth(apiKeysAuth.model)
+            }
+        }
+
+    fun getElasticsearchAccessToken(): String {
+        return elasticsearchAccessToken.text
+    }
+
+    fun getElasticsearchApiKey(): String {
+        return elasticsearchApiKey.text
+    }
+
+    fun getElasticsearchApiSecret(): CharArray {
+        return elasticsearchApiSecret.password
+    }
+
+    fun setElasticsearchAccessToken(text: String?) {
+        elasticsearchAccessToken.text = text
+    }
+
+    fun setElasticsearchApiKey(text: String?) {
+        elasticsearchApiKey.text = text
+    }
+
+    fun setElasticsearchApiSecret(text: String?) {
+        elasticsearchApiSecret.text = text
+    }
+
+}
