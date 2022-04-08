@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugins>
-    <!--
-    Each <plugin> element (required) describes one plugin in the repository.
-    Attributes:
-     - "id" (required) - used by JetBrains IDEs to uniquely identify a plugin.
-       Must match <id> in the plugin.xml file.
-     - "url" (required) - URL to download the plugin JAR/ZIP file. Must be HTTPS.
-     - "version" (required) - version of this plugin. Must match <version>
-       in the plugin.xml file.
-    -->
     <plugin
             id="com.github.breskeby.ideaindextracker"
-            url="https://github.com/breskeby/indexing-stats-collector/releases/download/v1.0.0/indexing-stats-collector-1.0.0.zip"
-            version="1.0.0">
+            url="https://github.com/breskeby/indexing-stats-collector/releases/download/v1.1.0/indexing-stats-collector-1.1.0.zip"
+            version="1.1.0">
         <!--
         The <idea-version> element (required) must match the same element
         in the plugin.xml file.
@@ -30,11 +21,14 @@ Allows gathering project scanning & indexing statistics for further analysis by 
         <change-notes>
 <![CDATA[
 Added
-- Rename to indexing stats collector
-- Add more authentication options
-  - [Access token authentication](https://github.com/breskeby/indexing-stats-collector/issues/3)
-  - [API keys authentication](https://github.com/breskeby/indexing-stats-collector/issues/2)
-- [Make elasticsearch index configurable](https://github.com/breskeby/indexing-stats-collector/issues/5)
+* Collect more details about the indexing
+  * was indexing interupted
+  * was full indexing
+  * files scanning duration
+  * indexing duration
+
+Changed
+* Make notification messages more intuitive
 ]]>
         </change-notes>
 
