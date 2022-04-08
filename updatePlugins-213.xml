@@ -26,13 +26,11 @@ Allows gathering project scanning & indexing statistics for further analysis by 
 
 Added
 <ul>
-    <li>Collect more details about the indexing
-        <li>
-            <ul>was indexing interupted</ul>
-            <ul>was full indexing</ul>
-            <ul>plain indexing duration</ul>
-        </li>
-    </li>
+<li>Collect more details about the indexing<br/>
+- was indexing interupted<br/
+- was full indexing<br/>
+- plain indexing duration
+</li>
 </ul>
 
 Changed
