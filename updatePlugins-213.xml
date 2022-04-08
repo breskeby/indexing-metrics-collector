@@ -12,14 +12,17 @@
         <name>indexing-stats-collector</name>
         <description>
 <![CDATA[
+
 Allows gathering project scanning & indexing statistics for further analysis by ingesting them into an elasticsearch cluster.
 
 * [Project Home](https://github.com/breskeby/indexing-stats-collector)
 * [Issue Tracker](https://github.com/breskeby/indexing-stats-collector/issues)
+
 ]]>
         </description>
         <change-notes>
 <![CDATA[
+
 Added
 * Collect more details about the indexing
   * was indexing interupted
@@ -29,6 +32,7 @@ Added
 
 Changed
 * Make notification messages more intuitive
+
 ]]>
         </change-notes>
 
