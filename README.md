@@ -41,7 +41,13 @@ Allows gathering project scanning & indexing statistics for further analysis by 
 [//]: # (  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "idea-index-tracker"</kbd> >)
 
 [//]: # (  <kbd>Install Plugin</kbd>)
-  
+
+- From plugin repository:
+
+  - In <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Manage plugin repositories...</kbd> 
+  add [https://raw.githubusercontent.com/breskeby/indexing-stats-collector/main/updatePlugins-213.xml](https://raw.githubusercontent.com/breskeby/indexing-stats-collector/main/updatePlugins-213.xml)
+  - Install <b>indexing-stats-collector</b> plugin
+
 - Manually:
 
   Download the [latest release](https://github.com/breskeby/indexing-stats-collector/releases/latest) and install it manually using
