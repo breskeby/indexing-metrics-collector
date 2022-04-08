@@ -14,9 +14,10 @@
 <![CDATA[
 
 Allows gathering project scanning & indexing statistics for further analysis by ingesting them into an elasticsearch cluster.<br/>
-
-- <a href="https://github.com/breskeby/indexing-stats-collector">Project Home</a>
-- <a href="https://github.com/breskeby/indexing-stats-collector/issues">Issue Tracker</a>
+<ul>
+<li><a href="https://github.com/breskeby/indexing-stats-collector">Project Home</a></li>
+<li><a href="https://github.com/breskeby/indexing-stats-collector/issues">Issue Tracker</a></li>
+</ul>
 
 ]]>
         </description>
@@ -24,14 +25,18 @@ Allows gathering project scanning & indexing statistics for further analysis by 
 <![CDATA[
 
 Added
-* Collect more details about the indexing
-  * was indexing interupted
-  * was full indexing
-  * files scanning duration
-  * indexing duration
+<ul>
+    <li>Collect more details about the indexing
+        <li>
+            <ul>was indexing interupted<ul>
+            <ul>was full indexing<ul>
+            <ul>plain indexing duration<ul>
+        </li>
+    </li>
+</ul>
 
 Changed
-* Make notification messages more intuitive
+<ul><li>Make notification messages more intuitive</li></ul>
 
 ]]>
         </change-notes>
