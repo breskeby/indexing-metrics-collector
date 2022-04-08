@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugins>
     <plugin
-            id="com.github.breskeby.ideaindextracker"
-            url="https://github.com/breskeby/indexing-stats-collector/releases/download/v1.1.0/indexing-stats-collector-1.1.0.zip"
-            version="1.1.0">
+            id="com.github.breskeby.idea.indexingstatscollector"
+            url="https://github.com/breskeby/indexing-stats-collector/releases/download/v1.1.0/indexing-stats-collector-1.1.1.zip"
+            version="1.1.1">
         <!--
         The <idea-version> element (required) must match the same element
         in the plugin.xml file.
@@ -24,17 +24,8 @@ Allows gathering project scanning & indexing statistics for further analysis by 
         <change-notes>
 <![CDATA[
 
-Added
-<ul>
-<li>Collect more details about the indexing<br/>
-- was indexing interupted<br/
-- was full indexing<br/>
-- plain indexing duration
-</li>
-</ul>
-
-Changed
-<ul><li>Make notification messages more intuitive</li></ul>
+Please visit <a href="https://github.com/breskeby/indexing-stats-collector/releases</a> for further release notes
+detailed change notes
 
 ]]>
         </change-notes>

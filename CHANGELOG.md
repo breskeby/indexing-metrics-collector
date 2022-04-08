@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.1.1] 2022-04-08
+### Added
+- Fix plugin update handling in idea by fixing mismatching plugin id
+
 ## [1.1.0] 2022-04-08
 ### Added
 - Collect more details about the indexing
