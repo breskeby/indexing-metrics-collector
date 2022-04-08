@@ -42,7 +42,12 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
                                     .withAnonymizedData(settingsState.anonymize)
                                     .withProjectName(project.name)
                                     .withIndexingReason(projectIndexingHistory.indexingReason)
-                                    .withTotalTime(projectIndexingHistory.times.totalUpdatingTime.toMillis())
+                                    .withWasFullIndex(projectIndexingHistory.times.wasFullIndexing)
+                                    .withWasInterrupted(projectIndexingHistory.times.wasInterrupted)
+                                    .withScanFilesDuration(projectIndexingHistory.times.scanFilesDuration.toMillis())
+                                    .withScanFilesDuration(projectIndexingHistory.times.scanFilesDuration.toMillis())
+                                    .withTotalUpdatingTime(projectIndexingHistory.times.totalUpdatingTime.toMillis())
+                                    .withIndexingDuration(projectIndexingHistory.times.indexingDuration.toMillis())
                                     .withTimestamps(
                                         projectIndexingHistory.times.updatingStart.toInstant().toEpochMilli(),
                                         projectIndexingHistory.times.updatingEnd.toInstant().toEpochMilli()

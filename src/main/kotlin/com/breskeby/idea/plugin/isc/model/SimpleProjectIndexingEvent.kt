@@ -8,6 +8,10 @@ data class SimpleProjectIndexingEvent(
     val projectName: @NlsSafe String,
     val indexingReason: String?,
     val totalUpdatingTime: TimeMillis,
+    val scanFilesDuration: TimeMillis,
+    val indexDuration: TimeMillis,
     val updatingStart: Long,
-    val updatingEnd: Long
+    val updatingEnd: Long,
+    val fullIndexing: Boolean,
+    val interrupted: Boolean
 )

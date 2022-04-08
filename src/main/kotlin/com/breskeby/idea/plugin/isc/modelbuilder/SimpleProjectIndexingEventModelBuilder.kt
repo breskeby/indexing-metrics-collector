@@ -9,8 +9,12 @@ class SimpleProjectIndexingEventModelBuilder(private val environmentBuilder: Env
     private lateinit var projectName: @NlsSafe String
     private var indexingReason: String? = null
     private var totalUpdatingTime: TimeMillis = -1
+    private var indexDuration: TimeMillis = -1
+    private var scanFilesDuration: TimeMillis = -1
     private var updatingStart: Long = -1
     private var updatingEnd: Long = -1
+    private var wasFullIndexing: Boolean = false
+    private var wasInterrupted: Boolean = false
 
     companion object {
         fun builder() : SimpleProjectIndexingEventModelBuilder = SimpleProjectIndexingEventModelBuilder(
@@ -33,8 +37,18 @@ class SimpleProjectIndexingEventModelBuilder(private val environmentBuilder: Env
         return this
     }
 
-    fun withTotalTime(updatingTime:TimeMillis) : SimpleProjectIndexingEventModelBuilder {
+    fun withTotalUpdatingTime(updatingTime:TimeMillis) : SimpleProjectIndexingEventModelBuilder {
         this.totalUpdatingTime = updatingTime
+        return this
+    }
+
+    fun withScanFilesDuration(scanFilesDuration: TimeMillis) : SimpleProjectIndexingEventModelBuilder {
+        this.scanFilesDuration = scanFilesDuration
+        return this
+    }
+
+    fun withIndexingDuration(indexDuration:TimeMillis) : SimpleProjectIndexingEventModelBuilder {
+        this.indexDuration = indexDuration
         return this
     }
 
@@ -48,16 +62,31 @@ class SimpleProjectIndexingEventModelBuilder(private val environmentBuilder: Env
         this.projectName = name
         return this
     }
+
+    fun withWasFullIndex(wasFullIndexing: Boolean): SimpleProjectIndexingEventModelBuilder {
+        this.wasFullIndexing = wasFullIndexing
+        return this
+    }
+
+    fun withWasInterrupted(withWasInterrupted: Boolean): SimpleProjectIndexingEventModelBuilder {
+        this.wasInterrupted = withWasInterrupted
+        return this
+    }
+
+
     // validate properties before building for proper error messages
     fun build() : SimpleProjectIndexingEvent {
         environmentBuilder.build()
         return SimpleProjectIndexingEvent(environmentBuilder.build(),
-        projectName,
-        indexingReason,
-        totalUpdatingTime,
-        updatingStart,
-        updatingEnd)
+            projectName,
+            indexingReason,
+            totalUpdatingTime,
+            scanFilesDuration,
+            indexDuration,
+            updatingStart,
+            updatingEnd,
+            wasFullIndexing,
+            wasInterrupted)
     }
-
 
 }
