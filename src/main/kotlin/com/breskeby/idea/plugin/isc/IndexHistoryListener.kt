@@ -28,7 +28,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     override fun onFinishedIndexing(projectIndexingHistory: ProjectIndexingHistory) {
         val project = projectIndexingHistory.project
-        runBackgroundableTask("Upload indexing stats", project) {
+        runBackgroundableTask("Uploading indexing stats", project) {
             if (validBasicConfiguration(project)) {
                 val index = settingsState.elasticsearchIndex
                 withWarningNotifications("Error publishing Indexing stats", project) {
@@ -69,7 +69,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         return if (!settingsState.elasticsearchHost.isNullOrBlank() && settingsState.elasticsearchPort > 1) {
             true
         } else {
-            sentNotification(project, "Elasticsearch connection not configured")
+            sentNotification(project, "Indexing stats collector endpoint not configured")
             false
         }
     }
@@ -96,7 +96,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
     private fun informAboutIndexCreating(project: Project, index: String) {
         sentNotification(project) {
             it.createNotification(
-                "Creating elasticsearch index $index",
+                "Creating indexing stats elasticsearch index $index",
                 NotificationType.INFORMATION
             )
         }
