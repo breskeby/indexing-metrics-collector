@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+## [1.1.1]
+Patch release fixing the plugin id handling addressing problems when updating the plugin within idea
+
 ## [1.1.1] 2022-04-08
 ### Added
 - Fix plugin update handling in idea by fixing mismatching plugin id
@@ -30,4 +33,3 @@
 ## [0.0.1] 2022-04-05
 ### Added
 - Initial Release
-
