@@ -8,10 +8,12 @@ import co.elastic.clients.elasticsearch.indices.ExistsRequest
 import com.breskeby.idea.plugin.isc.model.SimpleProjectIndexingEvent
 import com.breskeby.idea.plugin.isc.modelbuilder.SimpleProjectIndexingEventModelBuilder
 import com.breskeby.idea.plugin.isc.settings.IscSettingsState
+import com.intellij.ide.plugins.PluginManager
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationGroup
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.progress.runBackgroundableTask
 import com.intellij.openapi.project.Project
 import com.intellij.util.indexing.diagnostic.ProjectIndexingHistory
@@ -24,6 +26,10 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     private val settingsState = IscSettingsState.instance
     private val elasticsearchClientFactory = ElasticsearchClientFactory(settingsState)
+    private val version = PluginManager.getInstance().findEnabledPlugin(
+        PluginId.getId("com.github.breskeby.idea.indexingstatscollector")
+    )!!.version
+
     private var initialized = false
 
     override fun onFinishedIndexing(projectIndexingHistory: ProjectIndexingHistory) {
@@ -38,7 +44,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
                         builder.index(index)
                             .document(
                                 SimpleProjectIndexingEventModelBuilder.builder()
-                                    .withEnvironment()
+                                    .withEnvironment(version)
                                     .withAnonymizedData(settingsState.anonymize)
                                     .withProjectName(project.name)
                                     .withIndexingReason(projectIndexingHistory.indexingReason)

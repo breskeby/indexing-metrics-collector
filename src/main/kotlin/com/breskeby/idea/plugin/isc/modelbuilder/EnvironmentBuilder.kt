@@ -1,5 +1,6 @@
 package com.breskeby.idea.plugin.isc.modelbuilder
 
+import com.intellij.openapi.util.NlsSafe
 import java.net.InetAddress
 import java.security.MessageDigest
 import java.util.*
@@ -12,6 +13,7 @@ class EnvironmentBuilder {
         val ANONYMIZABLE_ITEMS = setOf("user.name", "host")
     }
 
+    private var pluginVersion: String = "unknown"
     private val environment = HashMap<String, String>()
     private var anonymized: Boolean = false
 
@@ -21,11 +23,11 @@ class EnvironmentBuilder {
     }
 
     fun withEnvironment() : EnvironmentBuilder {
-        environment.set("os.name", System.getProperty("os.name"))
-        environment.set("os.arch", System.getProperty("os.arch"))
-        environment.set("os.version", System.getProperty("os.version"))
-        environment.set("user.name", System.getProperty("user.name"))
-        environment.set("host", resolveHostName())
+        environment["os.name"] = System.getProperty("os.name")
+        environment["os.arch"] = System.getProperty("os.arch")
+        environment["os.version"] = System.getProperty("os.version")
+        environment["user.name"] = System.getProperty("user.name")
+        environment["host"] = resolveHostName()
         return this
     }
 
@@ -42,6 +44,10 @@ class EnvironmentBuilder {
         md.update(input.encodeToByteArray())
         val digest = md.digest()
         return DatatypeConverter.printHexBinary(digest).uppercase(Locale.getDefault())
+    }
+
+    fun withPluginVersion(pluginVersion: String) {
+        this.environment["isc-version"] = pluginVersion
     }
 
 }

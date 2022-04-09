@@ -1,6 +1,5 @@
 package com.breskeby.idea.plugin.isc
 
-import co.elastic.clients.elasticsearch.ElasticsearchAsyncClient
 import co.elastic.clients.elasticsearch.ElasticsearchClient
 import co.elastic.clients.json.jackson.JacksonJsonpMapper
 import co.elastic.clients.transport.rest_client.RestClientTransport
@@ -20,17 +19,13 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 
 
-class ElasticsearchClientFactory(val settingsState: IscSettingsState) {
+class ElasticsearchClientFactory(private val settingsState: IscSettingsState) {
 
-    val jacksonJsonpMapper = JacksonJsonpMapper()
+    private val jacksonJsonpMapper = JacksonJsonpMapper()
 
     init {
         jacksonJsonpMapper.objectMapper().registerKotlinModule()
         jacksonJsonpMapper.objectMapper().registerModule(JavaTimeModule())
-    }
-
-    fun newElasticsearchAsyncClient(): ElasticsearchAsyncClient {
-        return ElasticsearchAsyncClient(newRestClientTransport())
     }
 
     fun newElasticsearchClient(): ElasticsearchClient {

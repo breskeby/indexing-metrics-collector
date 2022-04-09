@@ -27,8 +27,8 @@ class SimpleProjectIndexingEventModelBuilder(private val environmentBuilder: Env
         return this
     }
 
-    fun withEnvironment() : SimpleProjectIndexingEventModelBuilder {
-        environmentBuilder.withEnvironment()
+    fun withEnvironment(pluginVersion:String): SimpleProjectIndexingEventModelBuilder {
+        environmentBuilder.withEnvironment().withPluginVersion(pluginVersion)
         return this
     }
 

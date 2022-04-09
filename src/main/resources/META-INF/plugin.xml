@@ -3,7 +3,6 @@
     <id>com.github.breskeby.idea.indexingstatscollector</id>
     <name>indexing-stats-collector</name>
     <vendor>Rene Groeschke (breskeby)</vendor>
-
     <depends>com.intellij.modules.platform</depends>
     <resource-bundle>messages</resource-bundle>
 

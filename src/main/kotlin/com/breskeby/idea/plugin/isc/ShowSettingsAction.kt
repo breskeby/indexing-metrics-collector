@@ -10,5 +10,4 @@ class ShowSettingsAction(@Nls text: String) : DumbAwareAction(text) {
     override fun actionPerformed(e: AnActionEvent) {
         ShowSettingsUtil.getInstance().showSettingsDialog(e.project, IscSettingsConfigurable::class.java)
     }
-
 }

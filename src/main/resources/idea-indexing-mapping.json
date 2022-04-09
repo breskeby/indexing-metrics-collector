@@ -1,56 +1,65 @@
 {
-  "mappings" : {
-    "properties" : {
-      "environment" : {
-        "properties" : {
-          "host" : {
-            "type" : "text",
-            "fields" : {
-              "keyword" : {
-                "type" : "keyword",
-                "ignore_above" : 256
+  "mappings": {
+    "properties": {
+      "environment": {
+        "properties": {
+          "host": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
               }
             }
           },
-          "os" : {
-            "properties" : {
-              "arch" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 50
+          "isc-version": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "os": {
+            "properties": {
+              "arch": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 50
                   }
                 }
               },
-              "name" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 50
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 50
                   }
                 }
               },
-              "version" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 20
+              "version": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 20
                   }
                 }
               }
             }
           },
-          "user" : {
-            "properties" : {
-              "name" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
+          "user": {
+            "properties": {
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
                   }
                 }
               }
@@ -58,44 +67,44 @@
           }
         }
       },
-      "fullIndexing" : {
-        "type" : "boolean"
+      "fullIndexing": {
+        "type": "boolean"
       },
-      "indexDuration" : {
-        "type" : "long"
+      "indexDuration": {
+        "type": "long"
       },
-      "indexingReason" : {
-        "type" : "text",
-        "fields" : {
-          "keyword" : {
-            "type" : "keyword",
-            "ignore_above" : 256
+      "indexingReason": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
           }
         }
       },
-      "interrupted" : {
-        "type" : "boolean"
+      "interrupted": {
+        "type": "boolean"
       },
-      "projectName" : {
-        "type" : "text",
-        "fields" : {
-          "keyword" : {
-            "type" : "keyword",
-            "ignore_above" : 256
+      "projectName": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
           }
         }
       },
-      "scanFilesDuration" : {
-        "type" : "long"
+      "scanFilesDuration": {
+        "type": "long"
       },
-      "totalUpdatingTime" : {
-        "type" : "long"
+      "totalUpdatingTime": {
+        "type": "long"
       },
-      "updatingEnd" : {
-        "type" : "date"
+      "updatingEnd": {
+        "type": "date"
       },
-      "updatingStart" : {
-        "type" : "date"
+      "updatingStart": {
+        "type": "date"
       }
     }
   }

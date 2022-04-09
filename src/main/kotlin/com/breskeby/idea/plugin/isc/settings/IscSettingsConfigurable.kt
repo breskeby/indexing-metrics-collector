@@ -11,7 +11,7 @@ import javax.swing.JComponent
  */
 class IscSettingsConfigurable : Configurable {
 
-    var mySettingsComponent: IscSettingsComponent? = null
+    private var mySettingsComponent: IscSettingsComponent? = null
 
     @Nls(capitalization = Nls.Capitalization.Title)
     override fun getDisplayName(): String? {
