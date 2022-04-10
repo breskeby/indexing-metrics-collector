@@ -54,7 +54,7 @@ jobs:
 
       # Publish the plugin to the Marketplace
       - name: Assemble plugin binary
-        run: ./gradlew assemble
+        run: ./gradlew assemble -Prelease=true
 
       # Upload artifact as a release asset
       - name: Upload Release Asset
