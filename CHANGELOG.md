@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 
+## [1.2.0]
 - Publish indexing collector plugin version
 
 ## [1.1.1] 2022-04-08
@@ -32,4 +33,3 @@
 ## [0.0.1] 2022-04-05
 ### Added
 - Initial Release
-
