@@ -70,7 +70,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         client: ElasticsearchClient,
         index: String
     ) {
-        if (initialized == false) {
+        if (!initialized) {
             maybeCreateIndex(project, client, index)
             initialized = true
         }

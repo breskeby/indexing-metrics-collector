@@ -36,43 +36,44 @@ class ElasticsearchClientFactory(private val settingsState: IscSettingsState) {
         val restClientBuilder = RestClient.builder(
             HttpHost(settingsState.elasticsearchHost, settingsState.elasticsearchPort, "https")
         )
-        configureAuthentication(restClientBuilder)
-        val transport = RestClientTransport(restClientBuilder.build(), jacksonJsonpMapper)
-        return transport
+        return RestClientTransport(withAuthentication(restClientBuilder).build(), jacksonJsonpMapper)
     }
 
-    private fun configureAuthentication(restClientBuilder: RestClientBuilder) {
-        if (settingsState.authType == IscSettingsState.AuthType.NO_AUTH) {
-            return;
-        } else if (settingsState.authType == IscSettingsState.AuthType.BASIC_AUTH) {
-            val credentialsProvider: CredentialsProvider = BasicCredentialsProvider()
-            credentialsProvider.setCredentials(
-                AuthScope.ANY,
-                UsernamePasswordCredentials(settingsState.elasticsearchUsername, settingsState.elasticsearchPassword)
-            )
-            restClientBuilder.setHttpClientConfigCallback { httpClientBuilder ->
-                httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
+    private fun withAuthentication(restClientBuilder: RestClientBuilder) : RestClientBuilder{
+        when (settingsState.authType) {
+            IscSettingsState.AuthType.BASIC_AUTH -> {
+                val credentialsProvider: CredentialsProvider = BasicCredentialsProvider()
+                credentialsProvider.setCredentials(
+                    AuthScope.ANY,
+                    UsernamePasswordCredentials(settingsState.elasticsearchUsername, settingsState.elasticsearchPassword)
+                )
+                restClientBuilder.setHttpClientConfigCallback { httpClientBuilder ->
+                    httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
+                }
             }
-        } else if (settingsState.authType == IscSettingsState.AuthType.ACCESS_TOKEN_AUTH) {
-            val defaultHeaders: Array<Header> = arrayOf(
-                BasicHeader(
-                    "Authorization",
-                    "Bearer ${settingsState.elasticsearchAccessToken}"
+            IscSettingsState.AuthType.ACCESS_TOKEN_AUTH -> {
+                val defaultHeaders: Array<Header> = arrayOf(
+                    BasicHeader(
+                        "Authorization",
+                        "Bearer ${settingsState.elasticsearchAccessToken}"
+                    )
                 )
-            )
-            restClientBuilder.setDefaultHeaders(defaultHeaders)
-        } else if (settingsState.authType == IscSettingsState.AuthType.API_KEYS_AUTH) {
-            val apiKeyAuth: String = Base64.getEncoder().encodeToString(
-                (settingsState.elasticsearchApiKey + ":" + settingsState.elasticsearchApiSecret).toByteArray(StandardCharsets.UTF_8)
-            )
-            val defaultHeaders = arrayOf<Header>(
-                BasicHeader(
-                    "Authorization",
-                    "ApiKey $apiKeyAuth"
+                restClientBuilder.setDefaultHeaders(defaultHeaders)
+            }
+            IscSettingsState.AuthType.API_KEYS_AUTH -> {
+                val apiKeyAuth: String = Base64.getEncoder().encodeToString(
+                    (settingsState.elasticsearchApiKey + ":" + settingsState.elasticsearchApiSecret).toByteArray(StandardCharsets.UTF_8)
                 )
-            )
-            restClientBuilder.setDefaultHeaders(defaultHeaders)
+                val defaultHeaders = arrayOf<Header>(
+                    BasicHeader(
+                        "Authorization",
+                        "ApiKey $apiKeyAuth"
+                    )
+                )
+                restClientBuilder.setDefaultHeaders(defaultHeaders)
+            }
         }
+        return restClientBuilder
     }
 
 
