@@ -30,7 +30,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         PluginId.getId("com.github.breskeby.idea.indexingstatscollector")
     )!!.version
 
-    private var initialized = false
+    private var initializedIndex = ""
 
     override fun onFinishedIndexing(projectIndexingHistory: ProjectIndexingHistory) {
         val project = projectIndexingHistory.project
@@ -70,9 +70,9 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         client: ElasticsearchClient,
         index: String
     ) {
-        if (!initialized) {
+        if (initializedIndex.isNullOrBlank() || initializedIndex != index) {
             maybeCreateIndex(project, client, index)
-            initialized = true
+            initializedIndex = index
         }
     }
 

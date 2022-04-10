@@ -3,6 +3,8 @@
 # indexing stats-collector Changelog
 
 ## [Unreleased]
+### Fixed
+- Fix applying predefined mapping on non-existing renamed indexes
 
 ## [1.2.1]
 ### Changed
