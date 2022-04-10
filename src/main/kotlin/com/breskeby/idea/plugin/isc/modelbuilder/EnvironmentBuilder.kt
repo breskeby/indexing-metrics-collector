@@ -1,6 +1,5 @@
 package com.breskeby.idea.plugin.isc.modelbuilder
 
-import com.intellij.openapi.util.NlsSafe
 import java.net.InetAddress
 import java.security.MessageDigest
 import java.util.*
@@ -13,7 +12,6 @@ class EnvironmentBuilder {
         val ANONYMIZABLE_ITEMS = setOf("user.name", "host")
     }
 
-    private var pluginVersion: String = "unknown"
     private val environment = HashMap<String, String>()
     private var anonymized: Boolean = false
 
