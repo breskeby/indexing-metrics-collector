@@ -57,7 +57,10 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
                                     .withTimestamps(
                                         projectIndexingHistory.times.updatingStart.toInstant().toEpochMilli(),
                                         projectIndexingHistory.times.updatingEnd.toInstant().toEpochMilli()
-                                    ).build()
+                                    )
+                                    .withTotalStatsPerIndexer(projectIndexingHistory.totalStatsPerIndexer)
+                                    .withProviderStatistics(projectIndexingHistory.providerStatistics)
+                                    .build()
                             )
                     }
                 }
