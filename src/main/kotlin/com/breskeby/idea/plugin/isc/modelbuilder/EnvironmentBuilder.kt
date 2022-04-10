@@ -3,8 +3,7 @@ package com.breskeby.idea.plugin.isc.modelbuilder
 import java.net.InetAddress
 import java.security.MessageDigest
 import java.util.*
-import java.util.HashMap
-import javax.xml.bind.DatatypeConverter
+import kotlin.experimental.and
 
 class EnvironmentBuilder {
 
@@ -41,7 +40,12 @@ class EnvironmentBuilder {
         val md = MessageDigest.getInstance("MD5")
         md.update(input.encodeToByteArray())
         val digest = md.digest()
-        return DatatypeConverter.printHexBinary(digest).uppercase(Locale.getDefault())
+        var result = ""
+
+        for (i in digest.indices) {
+            result += ((digest[i] and 0xff.toByte()) + 0x100).toString(16).substring(1)
+        }
+        return result
     }
 
     fun withPluginVersion(pluginVersion: String) {

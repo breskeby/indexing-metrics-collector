@@ -3,7 +3,8 @@
 # indexing stats-collector Changelog
 
 ## [Unreleased]
-### Added
+### Changed
+- Do not use JDK 8 specific class javax.xml.bind.DatatypeConverter in user data anymizer
 
 ## [1.2.0]
 ### Added
