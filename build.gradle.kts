@@ -17,7 +17,7 @@ plugins {
 }
 
 group = properties("pluginGroup")
-version = properties("pluginVersion")
+version = properties("pluginVersion").plus(if(properties("release") == "null") "-SNAPSHOT" else "")
 
 // Configure project's dependencies
 repositories {
@@ -71,7 +71,7 @@ tasks {
     }
 
     patchPluginXml {
-        version.set(properties("pluginVersion"))
+        version.set(project.version.toString())
         sinceBuild.set(properties("pluginSinceBuild"))
         untilBuild.set(properties("pluginUntilBuild"))
 
