@@ -10,7 +10,6 @@ class EnvironmentBuilder {
     companion object {
         val ANONYMIZABLE_ITEMS = setOf("user.name", "host")
         val MESSAGE_DIGEST = MessageDigest.getInstance("MD5");
-
     }
 
     private val environment = HashMap<String, String>()
