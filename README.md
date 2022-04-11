@@ -33,6 +33,32 @@ Allows gathering project scanning & indexing statistics for further analysis by 
 
 <!-- Plugin description end -->
 
+This idea plugin gives developer teams the chance to analyse how much time IDEA users spent on indexing their projects.
+The plugin captures indexing events occured in IDEA and pushes them into an elasticsearch cluster for further analyzise. 
+
+The captured data per indexing event includes
+
+- total indexing time
+- indexing reason
+- duration of file scanning
+- indexing duration
+- update start
+- update end
+- was full indexing (true / false)
+- was indexing interrupted (true / false)
+- environment
+  - user name (can be optionally anonymized)
+  - host name (can be optionally anonymized)
+  - os name
+  - os arch
+  - os version
+
+The elasticsearch mapping template can be found here: [elasticsearch index mapping](https://github.com/breskeby/indexing-stats-collector/blob/main/src/main/resources/idea-indexing-mapping.json)
+
+The idea for this came up when I heard first time about [shared project index](https://www.jetbrains.com/help/idea/shared-indexes.html#project-shared-indexes) For idea.
+If you want to know the impact of such a plugin you need to have hard numbers first. In a distributed team gathering these numbers are tricky so the idea
+for this plugin was born.
+
 ## Installation
 
 [//]: # (- Using IDE built-in plugin system:)
@@ -52,7 +78,6 @@ Allows gathering project scanning & indexing statistics for further analysis by 
 
   Download the [latest release](https://github.com/breskeby/indexing-stats-collector/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
-
 
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
