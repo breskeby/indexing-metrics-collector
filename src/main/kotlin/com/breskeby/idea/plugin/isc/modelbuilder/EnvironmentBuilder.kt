@@ -1,7 +1,6 @@
 package com.breskeby.idea.plugin.isc.modelbuilder
 
 import java.net.InetAddress
-import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import java.util.*
 import kotlin.experimental.and
