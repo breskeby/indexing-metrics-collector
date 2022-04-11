@@ -79,6 +79,12 @@ for this plugin was born.
   Download the [latest release](https://github.com/breskeby/indexing-stats-collector/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
+## Configuration
+
+The plugin provides a preferences page to configure elasticsearch connection data including
+authentication options and the option (enabled by default) to anonymize user data like host name and user name
+
+![](docs/indexing-collector-preferences.png)
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
 
