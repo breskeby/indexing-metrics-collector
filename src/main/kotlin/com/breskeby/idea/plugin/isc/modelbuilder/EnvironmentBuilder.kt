@@ -1,6 +1,7 @@
 package com.breskeby.idea.plugin.isc.modelbuilder
 
 import java.net.InetAddress
+import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import java.util.*
 import kotlin.experimental.and
@@ -9,6 +10,8 @@ class EnvironmentBuilder {
 
     companion object {
         val ANONYMIZABLE_ITEMS = setOf("user.name", "host")
+        val MESSAGE_DIGEST = MessageDigest.getInstance("MD5");
+
     }
 
     private val environment = HashMap<String, String>()
@@ -37,11 +40,8 @@ class EnvironmentBuilder {
     private fun shouldAnonymize(key: String) = anonymized && ANONYMIZABLE_ITEMS.contains(key)
 
     private fun checksum(input: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        md.update(input.encodeToByteArray())
-        val digest = md.digest()
+        val digest = MESSAGE_DIGEST.digest(input.encodeToByteArray())
         var result = ""
-
         for (i in digest.indices) {
             result += ((digest[i] and 0xff.toByte()) + 0x100).toString(16).substring(1)
         }
