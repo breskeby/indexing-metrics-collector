@@ -37,7 +37,7 @@ jobs:
           ${{ github.event.release.body }}
           EOM
           )"
-          
+
           CHANGELOG="${CHANGELOG//'%'/'%25'}"
           CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
           CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
@@ -64,16 +64,16 @@ jobs:
 
       # Increment version
       - name: Get version property
-          id: get-version-property
-          uses: dschanoeh/get-property@v1
-          with:
-            file: gradle.properties
-            property: pluginVersion
+        id: get-property
+        uses: dschanoeh/get-property@v1
+        with:
+          file: gradle.properties
+          property: pluginVersion
       - name: Bump release version
         id: bump_version
         uses: cookbenjamin/update-version@v1.0.1
         with:
-          current-version: ${{ steps.get-version-property.outputs.value }}
+          current-version: ${{ steps.get-property.outputs.value }}
           increment-version-fragment: 'PATCH'
           prerelease-fragment: 'REMOVE'
       - name: Show bumbed release version
