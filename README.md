@@ -26,7 +26,7 @@
 [//]: # (- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.)
 
 <!-- Plugin description -->
-Allows gathering project scanning & indexing statistics for further analysis by ingesting them into an elasticsearch cluster.
+Allows gathering project scanning & indexing statistics for further analysis by ingesting them into an [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch) cluster.
 
 * [Project Home](https://github.com/breskeby/indexing-stats-collector)
 * [Issue Tracker](https://github.com/breskeby/indexing-stats-collector/issues)
@@ -38,10 +38,11 @@ The plugin captures indexing events occured in IDEA and pushes them into an elas
 
 The captured data per indexing event includes
 
-- total indexing time
+- project name
+- total indexing time in ms
 - indexing reason
-- duration of file scanning
-- indexing duration
+- duration of file scanning in ms
+- indexing duration in ms
 - update start
 - update end
 - was full indexing (true / false)
@@ -85,6 +86,14 @@ The plugin provides a preferences page to configure elasticsearch connection dat
 authentication options and the option (enabled by default) to anonymize user data like host name and user name
 
 ![](docs/indexing-collector-preferences.png)
+
+## Analyzing
+
+The captured data allows gaining further insights why and how much time is spent on indexing in idea for your developers
+
+This is an example [kibana](https://www.elastic.co/kibana/) dashboard used during development of this plugin
+
+![](docs/kibana-dashboard-example.png)
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
 
