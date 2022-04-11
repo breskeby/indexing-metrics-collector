@@ -2,7 +2,7 @@
 <plugins>
     <plugin
             id="com.github.breskeby.idea.indexingstatscollector"
-            url="https://github.com/breskeby/indexing-stats-collector/releases/download/v1.2.1/indexing-stats-collector-1.2.1.zip"
+            url="https://github.com/breskeby/indexing-stats-collector/releases/download/v1.2.2/indexing-stats-collector-1.2.2.zip"
             version="1.2.1">
         <!--
         The <idea-version> element (required) must match the same element
