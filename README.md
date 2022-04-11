@@ -26,15 +26,15 @@
 [//]: # (- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.)
 
 <!-- Plugin description -->
-Allows gathering project scanning & indexing statistics for further analysis by ingesting them into an [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch) cluster.
+Allows gathering [IntelliJ IDEA](https://www.jetbrains.com/idea/) project scanning & indexing statistics for further analysis by ingesting them into an [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch) cluster.
 
 * [Project Home](https://github.com/breskeby/indexing-stats-collector)
 * [Issue Tracker](https://github.com/breskeby/indexing-stats-collector/issues)
 
 <!-- Plugin description end -->
 
-This idea plugin gives developer teams the chance to analyse how much time IDEA users spent on indexing their projects.
-The plugin captures indexing events occured in IDEA and pushes them into an elasticsearch cluster for further analyzise. 
+This [IntelliJ IDEA](https://www.jetbrains.com/idea/) plugin gives developer teams the chance to analyse how much time they spent on indexing their projects.
+The plugin captures indexing events occurred in IDEA and pushes them into an [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch)  cluster for further analyzise. 
 
 The captured data per indexing event includes
 
@@ -54,9 +54,9 @@ The captured data per indexing event includes
   - os arch
   - os version
 
-The elasticsearch mapping template can be found here: [elasticsearch index mapping](https://github.com/breskeby/indexing-stats-collector/blob/main/src/main/resources/idea-indexing-mapping.json)
+The [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch)  mapping template can be found here: [elasticsearch index mapping](https://github.com/breskeby/indexing-stats-collector/blob/main/src/main/resources/idea-indexing-mapping.json)
 
-The idea for this came up when I heard first time about [shared project index](https://www.jetbrains.com/help/idea/shared-indexes.html#project-shared-indexes) For idea.
+The idea for this came up when I heard first time about [shared project index](https://www.jetbrains.com/help/idea/shared-indexes.html#project-shared-indexes) for IntelliJ IDEA.
 If you want to know the impact of such a plugin you need to have hard numbers first. In a distributed team gathering these numbers are tricky so the idea
 for this plugin was born.
 
@@ -82,15 +82,14 @@ for this plugin was born.
 
 ## Configuration
 
-The plugin provides a preferences page to configure elasticsearch connection data including
-authentication options and the option (enabled by default) to anonymize user data like host name and user name
+The plugin provides a preference page to configure elasticsearch connection data including
+authentication options and index name to be used and the option (enabled by default) to anonymize user data like host name and user name
 
 ![](docs/indexing-collector-preferences.png)
 
 ## Analyzing
 
 The captured data allows gaining further insights why and how much time is spent on indexing in idea for your developers
-
 This is an example [kibana](https://www.elastic.co/kibana/) dashboard used during development of this plugin
 
 ![](docs/kibana-dashboard-example.png)
