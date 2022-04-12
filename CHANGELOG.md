@@ -3,6 +3,8 @@
 # indexing metrics collector Changelog
 
 ## [Unreleased]
+
+## [1.3.0]
 ### Changed
 - Renamed to indexing metrics collector
 
