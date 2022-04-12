@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.breskeby.idea.indexingstatscollector</id>
-    <name>indexing-stats-collector</name>
+    <name>indexing-metrics-collector</name>
     <vendor>Rene Groeschke (breskeby)</vendor>
     <depends>com.intellij.modules.platform</depends>
     <resource-bundle>messages</resource-bundle>
@@ -18,10 +18,10 @@
                 parentId="tools"
                 instance="com.breskeby.idea.plugin.isc.settings.IscSettingsConfigurable"
                 id="org.intellij.sdk.settings.IndexingTrackerSettingsConfigurable"
-                displayName="Indexing Stats Collector"/>
+                displayName="Indexing Metrics Collector"/>
     </extensions>
     <extensions defaultExtensionNs="com.intellij">
-        <notificationGroup id="Indexing Stats Collector Group"
+        <notificationGroup id="Indexing Metrics Collector Group"
                            displayType="BALLOON"
                            key="notification.group.name"/>
     </extensions>

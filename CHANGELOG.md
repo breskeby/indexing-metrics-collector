@@ -1,6 +1,8 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# indexing stats-collector Changelog
+# indexing metrics collector Changelog
+### Changed
+- Renamed to indexing metrics collector
 
 ## [Unreleased]
 ### Fixed

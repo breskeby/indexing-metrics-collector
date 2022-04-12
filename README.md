@@ -1,35 +1,10 @@
-# indexing-stats-collector
-
-[//]: # ()
-[//]: # (![Build]&#40;https://github.com/breskeby/idea-index-tracker/workflows/Build/badge.svg&#41;)
-
-[//]: # ([![Version]&#40;https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg&#41;]&#40;https://plugins.jetbrains.com/plugin/PLUGIN_ID&#41;)
-
-[//]: # ([![Downloads]&#40;https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg&#41;]&#40;https://plugins.jetbrains.com/plugin/PLUGIN_ID&#41;)
-
-[//]: # (## ToDo list)
-
-[//]: # (- [x] Create a new [IntelliJ Platform Plugin Template][template] project.)
-
-[//]: # (- [x] Get familiar with the [template documentation][template].)
-
-[//]: # (- [x] Verify the [pluginGroup]&#40;/gradle.properties&#41;, [plugin ID]&#40;/src/main/resources/META-INF/plugin.xml&#41; and [sources package]&#40;/src/main/kotlin&#41;.)
-
-[//]: # (- [x] Review the [Legal Agreements]&#40;https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html&#41;.)
-
-[//]: # (- [ ] [Publish a plugin manually]&#40;https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate&#41; for the first time.)
-
-[//]: # (- [ ] Set the Plugin ID in the above README badges.)
-
-[//]: # (- [ ] Set the [Deployment Token]&#40;https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html&#41;.)
-
-[//]: # (- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.)
+# indexing-metrics-collector
 
 <!-- Plugin description -->
-Allows gathering [IntelliJ IDEA](https://www.jetbrains.com/idea/) project scanning & indexing statistics for further analysis by ingesting them into an [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch) cluster.
+Allows gathering [IntelliJ IDEA](https://www.jetbrains.com/idea/) project scanning & indexing metrics for further analysis by ingesting them into an [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch) cluster.
 
-* [Project Home](https://github.com/breskeby/indexing-stats-collector)
-* [Issue Tracker](https://github.com/breskeby/indexing-stats-collector/issues)
+* [Project Home](https://github.com/breskeby/indexing-metrics-collector)
+* [Issue Tracker](https://github.com/breskeby/indexing-metrics-collector/issues)
 
 <!-- Plugin description end -->
 
@@ -54,7 +29,7 @@ The captured data per indexing event includes
   - os arch
   - os version
 
-The [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch)  mapping template can be found here: [elasticsearch index mapping](https://github.com/breskeby/indexing-stats-collector/blob/main/src/main/resources/idea-indexing-mapping.json)
+The [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch)  mapping template can be found here: [elasticsearch index mapping](https://github.com/breskeby/indexing-metrics-collector/blob/main/src/main/resources/idea-indexing-mapping.json)
 
 The idea for this came up when I heard first time about [shared project index](https://www.jetbrains.com/help/idea/shared-indexes.html#project-shared-indexes) for IntelliJ IDEA.
 If you want to know the impact of such a plugin you need to have hard numbers first. In a distributed team gathering these numbers are tricky so the idea
@@ -72,12 +47,12 @@ for this plugin was born.
 - From plugin repository:
 
   - In <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Manage plugin repositories...</kbd> 
-  add [https://raw.githubusercontent.com/breskeby/indexing-stats-collector/main/updatePlugins-213.xml](https://raw.githubusercontent.com/breskeby/indexing-stats-collector/main/updatePlugins-213.xml)
-  - Install <b>indexing-stats-collector</b> plugin
+  add [https://raw.githubusercontent.com/breskeby/indexing-metrics-collector/main/updatePlugins-213.xml](https://raw.githubusercontent.com/breskeby/indexing-metrics-collector/main/updatePlugins-213.xml)
+  - Install <b>indexing-metrics-collector</b> plugin
 
 - Manually:
 
-  Download the [latest release](https://github.com/breskeby/indexing-stats-collector/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/breskeby/indexing-metrics-collector/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 ## Configuration

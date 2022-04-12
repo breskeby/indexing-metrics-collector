@@ -34,10 +34,10 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     override fun onFinishedIndexing(projectIndexingHistory: ProjectIndexingHistory) {
         val project = projectIndexingHistory.project
-        runBackgroundableTask("Uploading indexing stats", project) {
+        runBackgroundableTask("Uploading indexing metrics", project) {
             if (validBasicConfiguration(project)) {
                 val index = settingsState.elasticsearchIndex
-                withWarningNotifications("Error publishing Indexing stats", project) {
+                withWarningNotifications("Error publishing indexing metrics", project) {
                     val client = elasticsearchClientFactory.newElasticsearchClient()
                     maybeInitializeIndex(project, client, index)
                     client.index { builder: IndexRequest.Builder<SimpleProjectIndexingEvent> ->
@@ -50,9 +50,8 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
                                     .withIndexingReason(projectIndexingHistory.indexingReason)
                                     .withWasFullIndex(projectIndexingHistory.times.wasFullIndexing)
                                     .withWasInterrupted(projectIndexingHistory.times.wasInterrupted)
-                                    .withScanFilesDuration(projectIndexingHistory.times.scanFilesDuration.toMillis())
-                                    .withScanFilesDuration(projectIndexingHistory.times.scanFilesDuration.toMillis())
                                     .withTotalUpdatingTime(projectIndexingHistory.times.totalUpdatingTime.toMillis())
+                                    .withScanFilesDuration(projectIndexingHistory.times.scanFilesDuration.toMillis())
                                     .withIndexingDuration(projectIndexingHistory.times.indexingDuration.toMillis())
                                     .withTimestamps(
                                         projectIndexingHistory.times.updatingStart.toInstant().toEpochMilli(),
@@ -80,7 +79,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         return if (!settingsState.elasticsearchHost.isNullOrBlank() && settingsState.elasticsearchPort > 1) {
             true
         } else {
-            sentNotification(project, "Indexing stats collector endpoint not configured")
+            sentNotification(project, "Indexing metrics collector endpoint not configured")
             false
         }
     }
@@ -107,7 +106,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
     private fun informAboutIndexCreating(project: Project, index: String) {
         sentNotification(project) {
             it.createNotification(
-                "Creating indexing stats elasticsearch index $index",
+                "Creating indexing metrics elasticsearch index $index",
                 NotificationType.INFORMATION
             )
         }
@@ -128,7 +127,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
     }
 
     private fun sentNotification(project: Project, notficationAction: (group: NotificationGroup) -> Notification) {
-        notficationAction.invoke(NotificationGroupManager.getInstance().getNotificationGroup("Indexing Stats Collector Group"))
+        notficationAction.invoke(NotificationGroupManager.getInstance().getNotificationGroup("Indexing Metrics Collector Group"))
             .notify(project)
     }
 

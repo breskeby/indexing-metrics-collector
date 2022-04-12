@@ -1,1 +1,1 @@
-rootProject.name = "indexing-stats-collector"
+rootProject.name = "indexing-metrics-collector"
