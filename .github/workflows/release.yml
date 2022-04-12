@@ -77,13 +77,13 @@ jobs:
           increment-version-fragment: 'PATCH'
           prerelease-fragment: 'REMOVE'
       - name: Show bumbed release version
-        run: echo ${{ steps.bump_version.outputs.next-version }}
+        run: echo ${{ steps.bump_version.outputs.updated-version }}
       - name: Update version property
         uses: dschanoeh/change-property@v1
         with:
           file: gradle.properties
           property: pluginVersion
-          value: ${{ steps.bump_version.outputs.next-version }}
+          value: ${{ steps.bump_version.outputs.updated-version }}
       # Create pull request
       - name: Create Pull Request
         if: ${{ steps.properties.outputs.changelog != '' }}
