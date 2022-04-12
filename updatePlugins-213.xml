@@ -2,21 +2,21 @@
 <plugins>
     <plugin
             id="com.github.breskeby.idea.indexingstatscollector"
-            url="https://github.com/breskeby/indexing-stats-collector/releases/download/v1.2.2/indexing-stats-collector-1.2.2.zip"
-            version="1.2.2">
+            url="https://github.com/breskeby/indexing-metrics-collector/releases/download/v1.3.0/indexing-metrics-collector-1.3.0.zip"
+            version="1.3.0">
         <!--
         The <idea-version> element (required) must match the same element
         in the plugin.xml file.
         -->
         <idea-version since-build="213" until-build="213.*"/>
-        <name>indexing-stats-collector</name>
+        <name>indexing-metrics-collector</name>
         <description>
 <![CDATA[
 
-Allows gathering project scanning & indexing statistics for further analysis by ingesting them into an elasticsearch cluster.<br/>
+Allows gathering project scanning & indexing metrics for further analysis by ingesting them into an elasticsearch cluster.<br/>
 <ul>
-<li><a href="https://github.com/breskeby/indexing-stats-collector">Project Home</a></li>
-<li><a href="https://github.com/breskeby/indexing-stats-collector/issues">Issue Tracker</a></li>
+<li><a href="https://github.com/breskeby/indexing-metrics-collector">Project Home</a></li>
+<li><a href="https://github.com/breskeby/indexing-metrics-collector/issues">Issue Tracker</a></li>
 </ul>
 
 ]]>
@@ -24,7 +24,7 @@ Allows gathering project scanning & indexing statistics for further analysis by 
         <change-notes>
 <![CDATA[
 
-Please visit <a href="https://github.com/breskeby/indexing-stats-collector/releases">Release Overview</a> for further release notes
+Please visit <a href="https://github.com/breskeby/indexing-metrics-collector/releases">Release Overview</a> for further release notes
 detailed change notes.
 
 ]]>
