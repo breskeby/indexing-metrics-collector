@@ -1,10 +1,12 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
 # indexing metrics collector Changelog
+
+## [Unreleased]
 ### Changed
 - Renamed to indexing metrics collector
 
-## [Unreleased]
+## [1.2.2]
 ### Fixed
 - Fix applying predefined mapping on non-existing renamed indexes
 
