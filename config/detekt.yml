@@ -9,6 +9,9 @@ comments:
     active: true
     excludes: ['**/*.kt']
     includes: ['**/detekt-api/src/main/**/api/*.kt']
+  AbsentOrWrongFileLicense:
+    active: true
+    licenseTemplateFile: 'license.template'
 
 complexity:
   StringLiteralDuplication:
