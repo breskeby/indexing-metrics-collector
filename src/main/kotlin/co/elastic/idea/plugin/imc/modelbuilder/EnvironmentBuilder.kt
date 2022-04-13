@@ -1,4 +1,4 @@
-package com.breskeby.idea.plugin.isc.modelbuilder
+package co.elastic.idea.plugin.imc.modelbuilder
 
 import java.net.InetAddress
 import java.security.MessageDigest
@@ -47,7 +47,7 @@ class EnvironmentBuilder {
     }
 
     fun withPluginVersion(pluginVersion: String) {
-        this.environment["isc-version"] = pluginVersion
+        this.environment["plugin-version"] = pluginVersion
     }
 
 }

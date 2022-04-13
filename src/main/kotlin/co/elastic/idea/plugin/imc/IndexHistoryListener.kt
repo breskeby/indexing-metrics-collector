@@ -1,13 +1,13 @@
-package com.breskeby.idea.plugin.isc
+package co.elastic.idea.plugin.imc
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient
 import co.elastic.clients.elasticsearch._types.ElasticsearchException
 import co.elastic.clients.elasticsearch.core.IndexRequest
 import co.elastic.clients.elasticsearch.indices.CreateIndexRequest
 import co.elastic.clients.elasticsearch.indices.ExistsRequest
-import com.breskeby.idea.plugin.isc.model.SimpleProjectIndexingEvent
-import com.breskeby.idea.plugin.isc.modelbuilder.SimpleProjectIndexingEventModelBuilder
-import com.breskeby.idea.plugin.isc.settings.IscSettingsState
+import co.elastic.idea.plugin.imc.model.SimpleProjectIndexingEvent
+import co.elastic.idea.plugin.imc.modelbuilder.SimpleProjectIndexingEventModelBuilder
+import co.elastic.idea.plugin.imc.settings.ImcSettingsState
 import com.intellij.ide.plugins.PluginManager
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationGroup
@@ -24,10 +24,10 @@ import java.io.InputStream
 @org.jetbrains.annotations.ApiStatus.Internal
 class IndexHistoryListener : ProjectIndexingHistoryListener {
 
-    private val settingsState = IscSettingsState.instance
+    private val settingsState = ImcSettingsState.instance
     private val elasticsearchClientFactory = ElasticsearchClientFactory(settingsState)
     private val version = PluginManager.getInstance().findEnabledPlugin(
-        PluginId.getId("com.github.breskeby.idea.indexingstatscollector")
+        PluginId.getId("co.elastic.idea.indexingmetricscollector")
     )!!.version
 
     private var initializedIndex = ""

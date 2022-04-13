@@ -1,6 +1,6 @@
-package com.breskeby.idea.plugin.isc.modelbuilder
+package co.elastic.idea.plugin.imc.modelbuilder
 
-import com.breskeby.idea.plugin.isc.model.SimpleProjectIndexingEvent
+import co.elastic.idea.plugin.imc.model.SimpleProjectIndexingEvent
 import com.intellij.openapi.util.NlsSafe
 import com.intellij.util.indexing.diagnostic.TimeMillis
 

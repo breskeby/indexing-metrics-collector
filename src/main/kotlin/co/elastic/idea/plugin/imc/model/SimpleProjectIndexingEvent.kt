@@ -1,4 +1,4 @@
-package com.breskeby.idea.plugin.isc.model
+package co.elastic.idea.plugin.imc.model
 
 import com.intellij.openapi.util.NlsSafe
 import com.intellij.util.indexing.diagnostic.TimeMillis

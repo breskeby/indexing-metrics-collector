@@ -1,4 +1,4 @@
-package com.breskeby.idea.plugin.isc.settings
+package co.elastic.idea.plugin.imc.settings
 
 import com.intellij.openapi.options.Configurable
 import org.jetbrains.annotations.Nls
@@ -9,13 +9,13 @@ import javax.swing.JComponent
 /**
  * Provides controller functionality for application settings.
  */
-class IscSettingsConfigurable : Configurable {
+class ImcSettingsConfigurable : Configurable {
 
-    private var mySettingsComponent: IscSettingsComponent? = null
+    private var mySettingsComponent: ImcSettingsComponent? = null
 
     @Nls(capitalization = Nls.Capitalization.Title)
     override fun getDisplayName(): String? {
-        return "Indexing Tracker"
+        return "Indexing Metrics Collector"
     }
 
     override fun getPreferredFocusedComponent(): JComponent? {
@@ -23,12 +23,12 @@ class IscSettingsConfigurable : Configurable {
     }
 
     override fun createComponent(): JComponent? {
-        mySettingsComponent = IscSettingsComponent()
+        mySettingsComponent = ImcSettingsComponent()
         return mySettingsComponent?.panel
     }
 
     override fun isModified(): Boolean {
-        val settings = IscSettingsState.instance
+        val settings = ImcSettingsState.instance
         var modified = mySettingsComponent?.getElasticsearchIndex() != settings.elasticsearchIndex
         modified = modified or (mySettingsComponent?.getElasticsearchHost() == settings.elasticsearchHost)
         modified = modified or (mySettingsComponent?.getElasticsearchPort() == settings.elasticsearchPort.toString())
@@ -45,7 +45,7 @@ class IscSettingsConfigurable : Configurable {
     }
 
     override fun apply() {
-        val settings = IscSettingsState.instance
+        val settings = ImcSettingsState.instance
         val component = mySettingsComponent!!
         settings.elasticsearchIndex = component.getElasticsearchIndex()
         settings.elasticsearchHost = component.getElasticsearchHost()
@@ -60,7 +60,7 @@ class IscSettingsConfigurable : Configurable {
     }
 
     override fun reset() {
-        val settings = IscSettingsState.instance
+        val settings = ImcSettingsState.instance
         val component = mySettingsComponent!!
 
         component.setElasticsearchIndex(settings.elasticsearchIndex)
