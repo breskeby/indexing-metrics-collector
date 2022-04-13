@@ -18,8 +18,7 @@ import org.elasticsearch.client.RestClientBuilder
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-
-class ElasticsearchClientFactory(private val settingsState: ImcSettingsState) {
+class ElasticsearchClientFactory(private val state: ImcSettingsState) {
 
     private val jacksonJsonpMapper = JacksonJsonpMapper()
 
@@ -34,18 +33,18 @@ class ElasticsearchClientFactory(private val settingsState: ImcSettingsState) {
 
     private fun newRestClientTransport(): RestClientTransport {
         val restClientBuilder = RestClient.builder(
-            HttpHost(settingsState.elasticsearchHost, settingsState.elasticsearchPort, "https")
+            HttpHost(state.esHost, state.esPort, "https")
         )
         return RestClientTransport(withAuthentication(restClientBuilder).build(), jacksonJsonpMapper)
     }
 
     private fun withAuthentication(restClientBuilder: RestClientBuilder) : RestClientBuilder{
-        when (settingsState.authType) {
+        when (state.authType) {
             ImcSettingsState.AuthType.BASIC_AUTH -> {
                 val credentialsProvider: CredentialsProvider = BasicCredentialsProvider()
                 credentialsProvider.setCredentials(
                     AuthScope.ANY,
-                    UsernamePasswordCredentials(settingsState.elasticsearchUsername, settingsState.elasticsearchPassword)
+                    UsernamePasswordCredentials(state.esUsername, state.esPassword)
                 )
                 restClientBuilder.setHttpClientConfigCallback { httpClientBuilder ->
                     httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
@@ -55,14 +54,14 @@ class ElasticsearchClientFactory(private val settingsState: ImcSettingsState) {
                 val defaultHeaders: Array<Header> = arrayOf(
                     BasicHeader(
                         "Authorization",
-                        "Bearer ${settingsState.elasticsearchAccessToken}"
+                        "Bearer ${state.esAccessToken}"
                     )
                 )
                 restClientBuilder.setDefaultHeaders(defaultHeaders)
             }
             ImcSettingsState.AuthType.API_KEYS_AUTH -> {
                 val apiKeyAuth: String = Base64.getEncoder().encodeToString(
-                    (settingsState.elasticsearchApiKey + ":" + settingsState.elasticsearchApiSecret).toByteArray(StandardCharsets.UTF_8)
+                    (state.esApiKey + ":" + state.esApiSecret).toByteArray(StandardCharsets.UTF_8)
                 )
                 val defaultHeaders = arrayOf<Header>(
                     BasicHeader(
@@ -75,6 +74,5 @@ class ElasticsearchClientFactory(private val settingsState: ImcSettingsState) {
         }
         return restClientBuilder
     }
-
 
 }

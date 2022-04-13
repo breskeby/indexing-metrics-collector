@@ -6,12 +6,6 @@ import java.util.*
 import kotlin.experimental.and
 
 class EnvironmentBuilder {
-
-    companion object {
-        val ANONYMIZABLE_ITEMS = setOf("user.name", "host")
-        val MESSAGE_DIGEST = MessageDigest.getInstance("MD5");
-    }
-
     private val environment = HashMap<String, String>()
     private var anonymized: Boolean = false
 
@@ -29,14 +23,20 @@ class EnvironmentBuilder {
         return this
     }
 
-    private fun resolveHostName(): String = InetAddress.getLocalHost().hostName
-
     fun build() : Map<String,String> =  environment.mapValues { maybeAnonymize(it.key, it.value) }
 
-    private fun maybeAnonymize(key: String, value: String): String = if (shouldAnonymize(key)) checksum(value) else value
+
+    fun withPluginVersion(pluginVersion: String) {
+        this.environment["plugin-version"] = pluginVersion
+    }
+
+    private fun maybeAnonymize(key: String, value: String): String =
+        if (shouldAnonymize(key)) checksum(value)
+        else value
 
     private fun shouldAnonymize(key: String) = anonymized && ANONYMIZABLE_ITEMS.contains(key)
 
+    @Suppress("MagicNumber")
     private fun checksum(input: String): String {
         val digest = MESSAGE_DIGEST.digest(input.encodeToByteArray())
         var result = ""
@@ -46,8 +46,11 @@ class EnvironmentBuilder {
         return result
     }
 
-    fun withPluginVersion(pluginVersion: String) {
-        this.environment["plugin-version"] = pluginVersion
+    private fun resolveHostName(): String = InetAddress.getLocalHost().hostName
+
+    companion object {
+        val ANONYMIZABLE_ITEMS = setOf("user.name", "host")
+        val MESSAGE_DIGEST = MessageDigest.getInstance("MD5");
     }
 
 }

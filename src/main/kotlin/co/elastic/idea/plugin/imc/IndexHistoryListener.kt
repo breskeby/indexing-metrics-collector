@@ -13,6 +13,7 @@ import com.intellij.notification.Notification
 import com.intellij.notification.NotificationGroup
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.progress.runBackgroundableTask
 import com.intellij.openapi.project.Project
@@ -36,7 +37,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         val project = projectIndexingHistory.project
         runBackgroundableTask("Uploading indexing metrics", project) {
             if (validBasicConfiguration(project)) {
-                val index = settingsState.elasticsearchIndex
+                val index = settingsState.esSearcIndex
                 withWarningNotifications("Error publishing indexing metrics", project) {
                     val client = elasticsearchClientFactory.newElasticsearchClient()
                     maybeInitializeIndex(project, client, index)
@@ -76,7 +77,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
     }
 
     private fun validBasicConfiguration(project: Project): Boolean {
-        return if (!settingsState.elasticsearchHost.isNullOrBlank() && settingsState.elasticsearchPort > 1) {
+        return if (!settingsState.esHost.isNullOrBlank() && settingsState.esPort > 1) {
             true
         } else {
             sentNotification(project, "Indexing metrics collector endpoint not configured")
@@ -116,6 +117,8 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         try {
             action.invoke()
         } catch (e: ElasticsearchException) {
+            Logger.getInstance(javaClass).warn("Error occured communicating with elasticsearch", e);
+
             sentNotification(project, content)
         }
     }
@@ -127,8 +130,9 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
     }
 
     private fun sentNotification(project: Project, notficationAction: (group: NotificationGroup) -> Notification) {
-        notficationAction.invoke(NotificationGroupManager.getInstance().getNotificationGroup("Indexing Metrics Collector Group"))
-            .notify(project)
+        notficationAction.invoke(
+            NotificationGroupManager.getInstance().getNotificationGroup("Indexing Metrics Collector Group")
+        ).notify(project)
     }
 
 }

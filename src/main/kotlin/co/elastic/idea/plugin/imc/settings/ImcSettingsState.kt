@@ -6,23 +6,24 @@ import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
 
-
 /**
  * Supports storing the application settings in a persistent way.
  * The [State] and [Storage] annotations define the name of the data and the file name where
  * these persistent application settings are stored.
  */
-@State(name = "co.elastic.indexingmetricscollector.settings", storages = [Storage("IndexingMetricsCollectorPlugin.xml")])
+@State(name = "co.elastic.indexingmetricscollector.settings",
+    storages = [Storage("IndexingMetricsCollectorPlugin.xml")]
+)
 class ImcSettingsState : PersistentStateComponent<ImcSettingsState?> {
-    var elasticsearchIndex = "idea-indexing"
-    var elasticsearchHost = ""
-    var elasticsearchPort = 9243
+    var esSearcIndex = "idea-indexing"
+    var esHost = ""
+    var esPort = 9243
     var anonymize = true
-    var elasticsearchUsername = ""
-    var elasticsearchPassword = ""
-    var elasticsearchAccessToken = ""
-    var elasticsearchApiKey = ""
-    var elasticsearchApiSecret = ""
+    var esUsername = ""
+    var esPassword = ""
+    var esAccessToken = ""
+    var esApiKey = ""
+    var esApiSecret = ""
     var authType = AuthType.NO_AUTH
     override fun getState(): ImcSettingsState? {
         return this

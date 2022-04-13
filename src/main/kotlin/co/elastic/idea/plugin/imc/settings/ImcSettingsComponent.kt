@@ -1,21 +1,20 @@
 package co.elastic.idea.plugin.imc.settings
 
-import com.intellij.ui.components.*
+import com.intellij.ui.components.JBCheckBox
+import com.intellij.ui.components.JBLabel
+import com.intellij.ui.components.JBPasswordField
+import com.intellij.ui.components.JBRadioButton
+import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import javax.swing.ButtonGroup
 import javax.swing.ButtonModel
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-
 /**
  * Supports creating and managing a [JPanel] for the Settings Dialog.
  */
 class ImcSettingsComponent {
-    companion object {
-        private const val LEFT_INDENT = 25
-    }
-
     val panel: JPanel
     private val elasticsearchIndex = JBTextField()
     private val elasticsearchHost = JBTextField()
@@ -37,6 +36,7 @@ class ImcSettingsComponent {
     private val apiKeyLabel = JBLabel("Elasticsearch API Key: ")
     private val apiSecretLabel = JBLabel("Elasticsearch API Secret: ")
 
+
     init {
         anonymize.toolTipText = "hashes system user and host name before uploading"
         noAuth.addActionListener { configureAuth(noAuth.model) }
@@ -52,7 +52,7 @@ class ImcSettingsComponent {
             .addLabeledComponent(JBLabel("Elasticsearch host: "), elasticsearchHost, 1, false)
             .addLabeledComponent(JBLabel("Elasticsearch port: "), elasticsearchPort, 1, false)
             .addComponent(anonymize, 1)
-            .addSeparator(10)
+            .addSeparator(SEPARATOR_INSET)
             .addComponent(noAuth, 1)
             .addComponent(basicAuth, 1)
             .setFormLeftIndent(LEFT_INDENT)
@@ -70,8 +70,33 @@ class ImcSettingsComponent {
             .addComponentFillVertically(JPanel(), 0)
             .panel
 
-        configureAuth(if(group.selection == null) noAuth.model else group.selection)
+        configureAuth(if (group.selection == null) noAuth.model else group.selection)
     }
+
+    var authType: ImcSettingsState.AuthType
+        get() {
+            val selection = group.selection
+            return if (selection === noAuth.model) {
+                ImcSettingsState.AuthType.NO_AUTH
+            } else if (selection === basicAuth.model) {
+                ImcSettingsState.AuthType.BASIC_AUTH
+            } else if (selection === accessTokenAuth.model) {
+                ImcSettingsState.AuthType.ACCESS_TOKEN_AUTH
+            } else {
+                ImcSettingsState.AuthType.API_KEYS_AUTH
+            }
+        }
+        set(authType) {
+            when (authType) {
+                ImcSettingsState.AuthType.NO_AUTH -> configureAuth(noAuth.model)
+                ImcSettingsState.AuthType.BASIC_AUTH -> configureAuth(basicAuth.model)
+                ImcSettingsState.AuthType.ACCESS_TOKEN_AUTH -> configureAuth(accessTokenAuth.model)
+                ImcSettingsState.AuthType.API_KEYS_AUTH -> configureAuth(apiKeysAuth.model)
+            }
+        }
+
+    val preferredFocusedComponent: JComponent
+        get() = elasticsearchHost
 
     private fun configureAuth(source: ButtonModel) {
         if (source === noAuth.model) {
@@ -126,9 +151,6 @@ class ImcSettingsComponent {
         }
     }
 
-    val preferredFocusedComponent: JComponent
-        get() = elasticsearchHost
-
     fun getElasticsearchHost(): String {
         return elasticsearchHost.text
     }
@@ -177,28 +199,6 @@ class ImcSettingsComponent {
         anonymize.isSelected = newStatus
     }
 
-    var authType: ImcSettingsState.AuthType
-        get() {
-            val selection = group.selection
-            return if (selection === noAuth.model) {
-                ImcSettingsState.AuthType.NO_AUTH
-            } else if (selection === basicAuth.model) {
-                ImcSettingsState.AuthType.BASIC_AUTH
-            } else if (selection === accessTokenAuth.model) {
-                ImcSettingsState.AuthType.ACCESS_TOKEN_AUTH
-            } else {
-                ImcSettingsState.AuthType.API_KEYS_AUTH
-            }
-        }
-        set(authType) {
-            when (authType) {
-                ImcSettingsState.AuthType.NO_AUTH -> configureAuth(noAuth.model)
-                ImcSettingsState.AuthType.BASIC_AUTH -> configureAuth(basicAuth.model)
-                ImcSettingsState.AuthType.ACCESS_TOKEN_AUTH -> configureAuth(accessTokenAuth.model)
-                ImcSettingsState.AuthType.API_KEYS_AUTH -> configureAuth(apiKeysAuth.model)
-            }
-        }
-
     fun getElasticsearchAccessToken(): String {
         return elasticsearchAccessToken.text
     }
@@ -223,4 +223,9 @@ class ImcSettingsComponent {
         elasticsearchApiSecret.text = text
     }
 
+
+    companion object {
+        private const val LEFT_INDENT = 25
+        private const val SEPARATOR_INSET = 10
+    }
 }

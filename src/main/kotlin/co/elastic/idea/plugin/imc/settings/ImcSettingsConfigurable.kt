@@ -5,7 +5,6 @@ import org.jetbrains.annotations.Nls
 import java.util.*
 import javax.swing.JComponent
 
-
 /**
  * Provides controller functionality for application settings.
  */
@@ -29,16 +28,17 @@ class ImcSettingsConfigurable : Configurable {
 
     override fun isModified(): Boolean {
         val settings = ImcSettingsState.instance
-        var modified = mySettingsComponent?.getElasticsearchIndex() != settings.elasticsearchIndex
-        modified = modified or (mySettingsComponent?.getElasticsearchHost() == settings.elasticsearchHost)
-        modified = modified or (mySettingsComponent?.getElasticsearchPort() == settings.elasticsearchPort.toString())
-        modified = modified or (mySettingsComponent?.getElasticsearchUsername()== settings.elasticsearchUsername)
-        modified = modified or (mySettingsComponent?.getElasticsearchAccessToken() == settings.elasticsearchAccessToken)
-        modified = modified or (mySettingsComponent?.getElasticsearchApiKey() == settings.elasticsearchApiKey)
-        modified = modified or (Arrays.equals(mySettingsComponent?.getElasticsearchApiSecret(), settings.elasticsearchApiSecret.toCharArray()))
+        var modified = mySettingsComponent?.getElasticsearchIndex() != settings.esSearcIndex
+        modified = modified or (mySettingsComponent?.getElasticsearchHost() == settings.esHost)
+        modified = modified or (mySettingsComponent?.getElasticsearchPort() == settings.esPort.toString())
+        modified = modified or (mySettingsComponent?.getElasticsearchUsername()== settings.esUsername)
+        modified = modified or (mySettingsComponent?.getElasticsearchAccessToken() == settings.esAccessToken)
+        modified = modified or (mySettingsComponent?.getElasticsearchApiKey() == settings.esApiKey)
+        modified = modified or (Arrays.equals(mySettingsComponent?.getElasticsearchApiSecret(),
+            settings.esApiSecret.toCharArray()))
         modified = modified or (mySettingsComponent?.authType == settings.authType)
         modified = modified or Arrays.equals(mySettingsComponent?.getElasticsearchPassword(),
-            settings.elasticsearchPassword.toCharArray()
+            settings.esPassword.toCharArray()
         )
         modified = modified or (mySettingsComponent?.getAnonymize() != settings.anonymize)
         return modified
@@ -47,14 +47,14 @@ class ImcSettingsConfigurable : Configurable {
     override fun apply() {
         val settings = ImcSettingsState.instance
         val component = mySettingsComponent!!
-        settings.elasticsearchIndex = component.getElasticsearchIndex()
-        settings.elasticsearchHost = component.getElasticsearchHost()
-        settings.elasticsearchPort = component.getElasticsearchPort().toInt()
-        settings.elasticsearchUsername = component.getElasticsearchUsername()
-        settings.elasticsearchPassword = String(component.getElasticsearchPassword())
-        settings.elasticsearchAccessToken = component.getElasticsearchAccessToken()
-        settings.elasticsearchApiKey = component.getElasticsearchApiKey()
-        settings.elasticsearchApiSecret = String(component.getElasticsearchApiSecret())
+        settings.esSearcIndex = component.getElasticsearchIndex()
+        settings.esHost = component.getElasticsearchHost()
+        settings.esPort = component.getElasticsearchPort().toInt()
+        settings.esUsername = component.getElasticsearchUsername()
+        settings.esPassword = String(component.getElasticsearchPassword())
+        settings.esAccessToken = component.getElasticsearchAccessToken()
+        settings.esApiKey = component.getElasticsearchApiKey()
+        settings.esApiSecret = String(component.getElasticsearchApiSecret())
         settings.authType = component.authType
         settings.anonymize = component.getAnonymize()
     }
@@ -63,14 +63,14 @@ class ImcSettingsConfigurable : Configurable {
         val settings = ImcSettingsState.instance
         val component = mySettingsComponent!!
 
-        component.setElasticsearchIndex(settings.elasticsearchIndex)
-        component.setElasticsearchHost(settings.elasticsearchHost)
-        component.setElasticsearchPort(settings.elasticsearchPort.toString())
-        component.setElasticsearchUsername(settings.elasticsearchUsername)
-        component.setElasticsearchPassword(settings.elasticsearchPassword)
-        component.setElasticsearchAccessToken(settings.elasticsearchAccessToken)
-        component.setElasticsearchApiKey(settings.elasticsearchApiKey)
-        component.setElasticsearchApiSecret(settings.elasticsearchApiSecret)
+        component.setElasticsearchIndex(settings.esSearcIndex)
+        component.setElasticsearchHost(settings.esHost)
+        component.setElasticsearchPort(settings.esPort.toString())
+        component.setElasticsearchUsername(settings.esUsername)
+        component.setElasticsearchPassword(settings.esPassword)
+        component.setElasticsearchAccessToken(settings.esAccessToken)
+        component.setElasticsearchApiKey(settings.esApiKey)
+        component.setElasticsearchApiSecret(settings.esApiSecret)
         component.authType = settings.authType
         component.setAnonymize(settings.anonymize)
     }

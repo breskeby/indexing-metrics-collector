@@ -16,12 +16,6 @@ class SimpleProjectIndexingEventModelBuilder(private val environmentBuilder: Env
     private var wasFullIndexing: Boolean = false
     private var wasInterrupted: Boolean = false
 
-    companion object {
-        fun builder() : SimpleProjectIndexingEventModelBuilder = SimpleProjectIndexingEventModelBuilder(
-            EnvironmentBuilder()
-        )
-    }
-
     fun withAnonymizedData(anon: Boolean = true) : SimpleProjectIndexingEventModelBuilder {
         environmentBuilder.withAnonymizedData(anon)
         return this
@@ -58,7 +52,7 @@ class SimpleProjectIndexingEventModelBuilder(private val environmentBuilder: Env
         return this
     }
 
-    fun withProjectName(name: @NlsSafe String): SimpleProjectIndexingEventModelBuilder {
+    fun withProjectName(name: String): SimpleProjectIndexingEventModelBuilder {
         this.projectName = name
         return this
     }
@@ -73,7 +67,6 @@ class SimpleProjectIndexingEventModelBuilder(private val environmentBuilder: Env
         return this
     }
 
-
     // validate properties before building for proper error messages
     fun build() : SimpleProjectIndexingEvent {
         environmentBuilder.build()
@@ -87,6 +80,12 @@ class SimpleProjectIndexingEventModelBuilder(private val environmentBuilder: Env
             updatingEnd,
             wasFullIndexing,
             wasInterrupted)
+    }
+
+    companion object {
+        fun builder() : SimpleProjectIndexingEventModelBuilder = SimpleProjectIndexingEventModelBuilder(
+            EnvironmentBuilder()
+        )
     }
 
 }
