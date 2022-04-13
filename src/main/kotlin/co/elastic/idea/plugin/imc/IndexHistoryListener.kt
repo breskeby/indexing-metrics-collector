@@ -26,7 +26,7 @@ import co.elastic.clients.elasticsearch.core.IndexRequest
 import co.elastic.clients.elasticsearch.indices.CreateIndexRequest
 import co.elastic.clients.elasticsearch.indices.ExistsRequest
 import co.elastic.idea.plugin.imc.model.SimpleProjectIndexingEvent
-import co.elastic.idea.plugin.imc.modelbuilder.SimpleProjectIndexingEventModelBuilder
+import co.elastic.idea.plugin.imc.modelbuilder.ProjectIndexingEventModelBuilder
 import co.elastic.idea.plugin.imc.settings.ImcSettingsState
 import com.intellij.ide.plugins.PluginManager
 import com.intellij.notification.Notification
@@ -64,7 +64,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
                     client.index { builder: IndexRequest.Builder<SimpleProjectIndexingEvent> ->
                         builder.index(index)
                             .document(
-                                SimpleProjectIndexingEventModelBuilder.builder()
+                                ProjectIndexingEventModelBuilder.builder()
                                     .withEnvironment(version)
                                     .withAnonymizedData(settingsState.anonymize)
                                     .withProjectName(project.name)

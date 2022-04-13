@@ -18,23 +18,16 @@
  *
  * */
 
-package co.elastic.idea.plugin.imc.model
+package co.elastic.idea.plugin.imc.modelbuilder
 
-import com.intellij.openapi.util.NlsSafe
-import com.intellij.util.indexing.diagnostic.TimeMillis
+import co.elastic.idea.plugin.imc.model.PlatformInfo
+import com.intellij.openapi.application.ApplicationInfo
 
-data class SimpleProjectIndexingEvent(
-    val environment: Map<String, String>,
-    val platform: PlatformInfo,
-    val projectName: @NlsSafe String,
-    val indexingReason: String?,
-    val totalUpdatingTime: TimeMillis,
-    val scanFilesDuration: TimeMillis,
-    val indexDuration: TimeMillis,
-    val updatingStart: Long,
-    val updatingEnd: Long,
-    val fullIndexing: Boolean,
-    val interrupted: Boolean
-)
+class PlatformInfoBuilder {
+    private val applicationInfo: ApplicationInfo = ApplicationInfo.getInstance()
+    private val applicationName : String = applicationInfo.versionName
+    private val version : String = applicationInfo.fullVersion
+    private val buildNo : String = applicationInfo.build.toString()
 
-data class PlatformInfo(val applicationName: String, val version: String, val buildNo: String)
+    fun build() : PlatformInfo = PlatformInfo(applicationName, version, buildNo)
+}
