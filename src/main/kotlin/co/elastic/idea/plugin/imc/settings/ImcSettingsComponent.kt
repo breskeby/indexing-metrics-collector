@@ -1,4 +1,4 @@
-package com.breskeby.idea.plugin.isc.settings
+package co.elastic.idea.plugin.imc.settings
 
 import com.intellij.ui.components.*
 import com.intellij.util.ui.FormBuilder
@@ -11,7 +11,7 @@ import javax.swing.JPanel
 /**
  * Supports creating and managing a [JPanel] for the Settings Dialog.
  */
-class IscSettingsComponent {
+class ImcSettingsComponent {
     companion object {
         private const val LEFT_INDENT = 25
     }
@@ -177,25 +177,25 @@ class IscSettingsComponent {
         anonymize.isSelected = newStatus
     }
 
-    var authType: IscSettingsState.AuthType
+    var authType: ImcSettingsState.AuthType
         get() {
             val selection = group.selection
             return if (selection === noAuth.model) {
-                IscSettingsState.AuthType.NO_AUTH
+                ImcSettingsState.AuthType.NO_AUTH
             } else if (selection === basicAuth.model) {
-                IscSettingsState.AuthType.BASIC_AUTH
+                ImcSettingsState.AuthType.BASIC_AUTH
             } else if (selection === accessTokenAuth.model) {
-                IscSettingsState.AuthType.ACCESS_TOKEN_AUTH
+                ImcSettingsState.AuthType.ACCESS_TOKEN_AUTH
             } else {
-                IscSettingsState.AuthType.API_KEYS_AUTH
+                ImcSettingsState.AuthType.API_KEYS_AUTH
             }
         }
         set(authType) {
             when (authType) {
-                IscSettingsState.AuthType.NO_AUTH -> configureAuth(noAuth.model)
-                IscSettingsState.AuthType.BASIC_AUTH -> configureAuth(basicAuth.model)
-                IscSettingsState.AuthType.ACCESS_TOKEN_AUTH -> configureAuth(accessTokenAuth.model)
-                IscSettingsState.AuthType.API_KEYS_AUTH -> configureAuth(apiKeysAuth.model)
+                ImcSettingsState.AuthType.NO_AUTH -> configureAuth(noAuth.model)
+                ImcSettingsState.AuthType.BASIC_AUTH -> configureAuth(basicAuth.model)
+                ImcSettingsState.AuthType.ACCESS_TOKEN_AUTH -> configureAuth(accessTokenAuth.model)
+                ImcSettingsState.AuthType.API_KEYS_AUTH -> configureAuth(apiKeysAuth.model)
             }
         }
 

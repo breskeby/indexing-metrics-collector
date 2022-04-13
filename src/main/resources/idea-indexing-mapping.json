@@ -12,7 +12,7 @@
               }
             }
           },
-          "isc-version": {
+          "plugin-version": {
             "type": "text",
             "fields": {
               "keyword": {

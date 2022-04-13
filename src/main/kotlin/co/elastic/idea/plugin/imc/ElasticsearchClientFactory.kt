@@ -1,9 +1,9 @@
-package com.breskeby.idea.plugin.isc
+package co.elastic.idea.plugin.imc
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient
 import co.elastic.clients.json.jackson.JacksonJsonpMapper
 import co.elastic.clients.transport.rest_client.RestClientTransport
-import com.breskeby.idea.plugin.isc.settings.IscSettingsState
+import co.elastic.idea.plugin.imc.settings.ImcSettingsState
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.apache.http.Header
@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 
 
-class ElasticsearchClientFactory(private val settingsState: IscSettingsState) {
+class ElasticsearchClientFactory(private val settingsState: ImcSettingsState) {
 
     private val jacksonJsonpMapper = JacksonJsonpMapper()
 
@@ -41,7 +41,7 @@ class ElasticsearchClientFactory(private val settingsState: IscSettingsState) {
 
     private fun withAuthentication(restClientBuilder: RestClientBuilder) : RestClientBuilder{
         when (settingsState.authType) {
-            IscSettingsState.AuthType.BASIC_AUTH -> {
+            ImcSettingsState.AuthType.BASIC_AUTH -> {
                 val credentialsProvider: CredentialsProvider = BasicCredentialsProvider()
                 credentialsProvider.setCredentials(
                     AuthScope.ANY,
@@ -51,7 +51,7 @@ class ElasticsearchClientFactory(private val settingsState: IscSettingsState) {
                     httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
                 }
             }
-            IscSettingsState.AuthType.ACCESS_TOKEN_AUTH -> {
+            ImcSettingsState.AuthType.ACCESS_TOKEN_AUTH -> {
                 val defaultHeaders: Array<Header> = arrayOf(
                     BasicHeader(
                         "Authorization",
@@ -60,7 +60,7 @@ class ElasticsearchClientFactory(private val settingsState: IscSettingsState) {
                 )
                 restClientBuilder.setDefaultHeaders(defaultHeaders)
             }
-            IscSettingsState.AuthType.API_KEYS_AUTH -> {
+            ImcSettingsState.AuthType.API_KEYS_AUTH -> {
                 val apiKeyAuth: String = Base64.getEncoder().encodeToString(
                     (settingsState.elasticsearchApiKey + ":" + settingsState.elasticsearchApiSecret).toByteArray(StandardCharsets.UTF_8)
                 )
