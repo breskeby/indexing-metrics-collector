@@ -3,8 +3,8 @@
 <!-- Plugin description -->
 Allows gathering [IntelliJ IDEA](https://www.jetbrains.com/idea/) project scanning & indexing metrics for further analysis by ingesting them into an [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch) cluster.
 
-* [Project Home](https://github.com/breskeby/indexing-metrics-collector)
-* [Issue Tracker](https://github.com/breskeby/indexing-metrics-collector/issues)
+* [Project Home](https://github.com/elastic/idea-indexing-metrics-collector)
+* [Issue Tracker](https://github.com/elastic/idea-indexing-metrics-collector/issues)
 
 <!-- Plugin description end -->
 
@@ -22,6 +22,8 @@ The captured data per indexing event includes
 - update end
 - was full indexing (true / false)
 - was indexing interrupted (true / false)
+- plugin version
+- platform info (idea application name, version, build no)
 - environment
   - user name (can be optionally anonymized)
   - host name (can be optionally anonymized)
