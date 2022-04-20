@@ -2,7 +2,7 @@
 <plugins>
     <plugin
             id="co.elastic.idea.indexingmetricscollector"
-            url="https://github.com/elastic/idea-indexing-metrics-collector/releases/download/v1.0.0/idea-indexing-metrics-collector-1.0.0.zip"
+            url="https://github.com/elastic/idea-indexing-metrics-collector/releases/download/v1.0.0/indexing-metrics-collector-1.0.0.zip"
             version="1.0.0">
         <!--
         The <idea-version> element (required) must match the same element
