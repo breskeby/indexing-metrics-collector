@@ -21,13 +21,18 @@
 package co.elastic.idea.plugin.imc.modelbuilder
 
 import co.elastic.idea.plugin.imc.model.PlatformInfo
+import com.intellij.ide.plugins.PluginManager
 import com.intellij.openapi.application.ApplicationInfo
+import com.intellij.openapi.extensions.PluginId
 
 class PlatformInfoBuilder {
     private val applicationInfo: ApplicationInfo = ApplicationInfo.getInstance()
     private val applicationName : String = applicationInfo.versionName
-    private val version : String = applicationInfo.fullVersion
+    private val applicationVersion : String = applicationInfo.fullVersion
     private val buildNo : String = applicationInfo.build.toString()
+    private val pluginVersion = PluginManager.getInstance().findEnabledPlugin(
+        PluginId.getId("co.elastic.idea.indexingmetricscollector")
+    )!!.version
 
-    fun build() : PlatformInfo = PlatformInfo(applicationName, version, buildNo)
+    fun build() : PlatformInfo = PlatformInfo(applicationName, applicationVersion, buildNo, pluginVersion)
 }

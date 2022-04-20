@@ -44,8 +44,8 @@ class ProjectIndexingEventModelBuilder(
         return this
     }
 
-    fun withEnvironment(pluginVersion: String): ProjectIndexingEventModelBuilder {
-        environmentBuilder.withEnvironment().withPluginVersion(pluginVersion)
+    fun withEnvironment(): ProjectIndexingEventModelBuilder {
+        environmentBuilder.withEnvironment()
         return this
     }
 

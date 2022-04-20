@@ -1,65 +1,56 @@
 {
-  "mappings": {
-    "properties": {
-      "environment": {
-        "properties": {
-          "host": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
+  "mappings" : {
+    "properties" : {
+      "environment" : {
+        "properties" : {
+          "host" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
               }
             }
           },
-          "plugin-version": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
-          },
-          "os": {
-            "properties": {
-              "arch": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 50
+          "os" : {
+            "properties" : {
+              "arch" : {
+                "type" : "text",
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 50
                   }
                 }
               },
-              "name": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 50
+              "name" : {
+                "type" : "text",
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 50
                   }
                 }
               },
-              "version": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 20
+              "version" : {
+                "type" : "text",
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 20
                   }
                 }
               }
             }
           },
-          "user": {
-            "properties": {
-              "name": {
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "type": "keyword",
-                    "ignore_above": 256
+          "user" : {
+            "properties" : {
+              "name" : {
+                "type" : "text",
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
                   }
                 }
               }
@@ -67,44 +58,84 @@
           }
         }
       },
-      "fullIndexing": {
-        "type": "boolean"
+      "fullIndexing" : {
+        "type" : "boolean"
       },
-      "indexDuration": {
-        "type": "long"
+      "indexDuration" : {
+        "type" : "long"
       },
-      "indexingReason": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
+      "indexingReason" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
           }
         }
       },
-      "interrupted": {
-        "type": "boolean"
+      "interrupted" : {
+        "type" : "boolean"
       },
-      "projectName": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
+      "platform" : {
+        "properties" : {
+          "applicationName" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "buildNo" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "pluginVersion" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "version" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
           }
         }
       },
-      "scanFilesDuration": {
-        "type": "long"
+      "projectName" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
       },
-      "totalUpdatingTime": {
-        "type": "long"
+      "scanFilesDuration" : {
+        "type" : "long"
       },
-      "updatingEnd": {
-        "type": "date"
+      "totalUpdatingTime" : {
+        "type" : "long"
       },
-      "updatingStart": {
-        "type": "date"
+      "updatingEnd" : {
+        "type" : "date"
+      },
+      "updatingStart" : {
+        "type" : "date"
       }
     }
   }

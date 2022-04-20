@@ -37,4 +37,7 @@ data class SimpleProjectIndexingEvent(
     val interrupted: Boolean
 )
 
-data class PlatformInfo(val applicationName: String, val version: String, val buildNo: String)
+data class PlatformInfo(val applicationName: String,
+                        val version: String,
+                        val buildNo: String,
+                        val pluginVersion: String)

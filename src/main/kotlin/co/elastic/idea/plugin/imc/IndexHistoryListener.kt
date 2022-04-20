@@ -28,13 +28,11 @@ import co.elastic.clients.elasticsearch.indices.ExistsRequest
 import co.elastic.idea.plugin.imc.model.SimpleProjectIndexingEvent
 import co.elastic.idea.plugin.imc.modelbuilder.ProjectIndexingEventModelBuilder
 import co.elastic.idea.plugin.imc.settings.ImcSettingsState
-import com.intellij.ide.plugins.PluginManager
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationGroup
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.diagnostic.Logger
-import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.progress.runBackgroundableTask
 import com.intellij.openapi.project.Project
 import com.intellij.util.indexing.diagnostic.ProjectIndexingHistory
@@ -47,9 +45,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     private val settingsState = ImcSettingsState.instance
     private val elasticsearchClientFactory = ElasticsearchClientFactory(settingsState)
-    private val version = PluginManager.getInstance().findEnabledPlugin(
-        PluginId.getId("co.elastic.idea.indexingmetricscollector")
-    )!!.version
+
 
     private var initializedIndex = ""
 
@@ -65,7 +61,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
                         builder.index(index)
                             .document(
                                 ProjectIndexingEventModelBuilder.builder()
-                                    .withEnvironment(version)
+                                    .withEnvironment()
                                     .withAnonymizedData(settingsState.anonymize)
                                     .withProjectName(project.name)
                                     .withIndexingReason(projectIndexingHistory.indexingReason)

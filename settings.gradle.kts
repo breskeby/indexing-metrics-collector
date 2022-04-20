@@ -1,1 +1,1 @@
-rootProject.name = "idea-metrics-collector"
+rootProject.name = "indexing-metrics-collectorr"
