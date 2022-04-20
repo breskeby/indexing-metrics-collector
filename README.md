@@ -49,7 +49,7 @@ for this plugin was born.
 - From plugin repository:
 
   - In <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Manage plugin repositories...</kbd> 
-  add [https://raw.githubusercontent.com/breskeby/indexing-metrics-collector/main/updatePlugins-213.xml](https://raw.githubusercontent.com/breskeby/indexing-metrics-collector/main/updatePlugins-213.xml)
+  add [https://raw.githubusercontent.com/elastic/indexing-metrics-collector/main/updatePlugins-213.xml](https://raw.githubusercontent.com/breskeby/indexing-metrics-collector/main/updatePlugins-213.xml)
   - Install <b>indexing-metrics-collector</b> plugin
 
 - Manually:
