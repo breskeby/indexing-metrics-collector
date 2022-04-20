@@ -8,7 +8,7 @@
         The <idea-version> element (required) must match the same element
         in the plugin.xml file.
         -->
-        <idea-version since-build="213" until-build="213.*"/>
+        <idea-version since-build="213" until-build="221.*"/>
         <name>indexing-metrics-collector</name>
         <description>
 <![CDATA[
