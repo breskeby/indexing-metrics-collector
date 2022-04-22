@@ -35,7 +35,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
     storages = [Storage("IndexingMetricsCollectorPlugin.xml")]
 )
 class ImcSettingsState : PersistentStateComponent<ImcSettingsState?> {
-    var esSearcIndex = "idea-indexing"
+    var esSearcIndex = "idea-metrics-indexing"
     var esHost = ""
     var esPort = 9243
     var anonymize = true
