@@ -18,7 +18,7 @@
  *
  * */
 
-package co.elastic.idea.plugin.imc
+package co.elastic.idea.plugin.imc.elasticsearch
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient
 import co.elastic.clients.json.jackson.JacksonJsonpMapper

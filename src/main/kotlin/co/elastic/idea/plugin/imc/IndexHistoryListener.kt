@@ -25,6 +25,7 @@ import co.elastic.clients.elasticsearch._types.ElasticsearchException
 import co.elastic.clients.elasticsearch.core.IndexRequest
 import co.elastic.clients.elasticsearch.indices.CreateIndexRequest
 import co.elastic.clients.elasticsearch.indices.ExistsRequest
+import co.elastic.idea.plugin.imc.elasticsearch.ElasticsearchClientFactory
 import co.elastic.idea.plugin.imc.model.SimpleProjectIndexingEvent
 import co.elastic.idea.plugin.imc.modelbuilder.ProjectIndexingEventModelBuilder
 import co.elastic.idea.plugin.imc.settings.ImcSettingsState
@@ -38,6 +39,8 @@ import com.intellij.openapi.project.Project
 import com.intellij.util.indexing.diagnostic.ProjectIndexingHistory
 import com.intellij.util.indexing.diagnostic.ProjectIndexingHistoryListener
 import com.intellij.util.indexing.diagnostic.dto.toMillis
+import kotlinx.serialization.json.JsonNull.content
+import java.io.IOException
 import java.io.InputStream
 
 @org.jetbrains.annotations.ApiStatus.Internal
@@ -45,7 +48,6 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     private val settingsState = ImcSettingsState.instance
     private val elasticsearchClientFactory = ElasticsearchClientFactory(settingsState)
-
 
     private var initializedIndex = ""
 
@@ -102,46 +104,72 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
     }
 
     private fun maybeCreateIndex(project: Project, client: ElasticsearchClient, index: String) {
-        if (!elasticsearchIndexExists(client, index)) {
+        val elasticsearchIndexExists = elasticsearchIndexExists(client, index, project)
+        println("elasticsearchIndexExists = ${elasticsearchIndexExists} -- ${index}")
+        if (!elasticsearchIndexExists) {
             informAboutIndexCreating(project, index)
-            createIndexWithPredefinedMapping(client, index)
+            createIndexWithPredefinedMapping(client, index, project)
         }
     }
 
-    private fun createIndexWithPredefinedMapping(client: ElasticsearchClient, index: String) {
+    private fun createIndexWithPredefinedMapping(client: ElasticsearchClient, index: String, project: Project) {
         val input: InputStream = this.javaClass.getResourceAsStream("/idea-indexing-mapping.json")
-        client.indices().create(CreateIndexRequest.of { b: CreateIndexRequest.Builder ->
-            b.index(index).withJson(input)
-        }).acknowledged()
+        handleConnectionError({
+            client.indices().create(CreateIndexRequest.of { b: CreateIndexRequest.Builder ->
+                b.index(index).withJson(input)
+            }).acknowledged()!!
+        }, project)
     }
 
-    private fun elasticsearchIndexExists(client: ElasticsearchClient, index: String) =
-        client.indices().exists(
-            ExistsRequest.of { b: ExistsRequest.Builder -> b.index(index) }
-        ).value()
+    private fun elasticsearchIndexExists(client: ElasticsearchClient, index: String, project: Project): Boolean =
+        handleConnectionError({
+            client.indices().exists(
+                ExistsRequest.of { b: ExistsRequest.Builder -> b.index(index) }
+            ).value()
+        }, project)
+
+    private fun handleConnectionError(elasticSearchAction: () -> Boolean, project: Project): Boolean =
+        try {
+            elasticSearchAction.invoke()
+        } catch (e: IOException) {
+            Logger.getInstance(javaClass).error("Error connecting to elasticsearch endpoint", e)
+            sentNotification(project, "Error connecting to elasticsearch", NotificationType.ERROR)
+            false
+        }
+
 
     private fun informAboutIndexCreating(project: Project, index: String) {
-        sentNotification(project) {
-            it.createNotification(
-                "Creating indexing metrics elasticsearch index $index",
-                NotificationType.INFORMATION
-            )
-        }
+        sentNotification(project, "Creating indexing metrics elasticsearch index $index", NotificationType.INFORMATION)
     }
 
     private fun withWarningNotifications(content: String, project: Project, action: () -> Unit) {
         try {
             action.invoke()
         } catch (e: ElasticsearchException) {
-            Logger.getInstance(javaClass).warn("Error occured communicating with elasticsearch", e);
-
-            sentNotification(project, content)
+            Logger.getInstance(javaClass).warn("Error occurred communicating with elasticsearch", e);
+            sentNotification(project, content, e.error().reason(), NotificationType.WARNING)
+        } catch (e: IOException) {
+            Logger.getInstance(javaClass).error("Error connecting to elasticsearch endpoint", e)
+            sentNotification(project, content, NotificationType.ERROR)
         }
     }
 
-    private fun sentNotification(project: Project, content: String) {
+    private fun sentNotification(project: Project, content: String, type: NotificationType = NotificationType.WARNING) {
         sentNotification(project) {
-            it.createNotification(content, NotificationType.WARNING).addAction(ShowSettingsAction("Configure..."))
+            it.createNotification(content, type).addAction(ShowSettingsAction("Configure Elasticsearch connection..."))
+        }
+    }
+
+    private fun sentNotification(
+        project: Project,
+        title: String,
+        content: String,
+        type: NotificationType = NotificationType.WARNING
+    ) {
+        sentNotification(project) {
+            it.createNotification(title, content, type).addAction(
+                ShowSettingsAction("Configure Elasticsearch connection...")
+            )
         }
     }
 
