@@ -10,7 +10,7 @@
   - [Access token authentication](https://github.com/breskeby/indexing-stats-collector/issues/3)
   - [API keys authentication](https://github.com/breskeby/indexing-stats-collector/issues/2)
 - [Make elasticsearch index configurable](https://github.com/breskeby/indexing-stats-collector/issues/5)
-- add runtime data about 
+- Add runtime data
 
 ### Changed
 - Renamed default index name to `idea-metrics-indexing`
