@@ -48,7 +48,7 @@ class ImcSettingsConfigurable : Configurable {
 
     override fun isModified(): Boolean {
         val settings = ImcSettingsState.instance
-        var modified = mySettingsComponent?.getElasticsearchIndex() != settings.esSearcIndex
+        var modified = mySettingsComponent?.getElasticsearchIndex() != settings.esSearchIndex
         modified = modified or (mySettingsComponent?.getElasticsearchHost() == settings.esHost)
         modified = modified or (mySettingsComponent?.getElasticsearchPort() == settings.esPort.toString())
         modified = modified or (mySettingsComponent?.getElasticsearchUsername()== settings.esUsername)
@@ -67,7 +67,7 @@ class ImcSettingsConfigurable : Configurable {
     override fun apply() {
         val settings = ImcSettingsState.instance
         val component = mySettingsComponent!!
-        settings.esSearcIndex = component.getElasticsearchIndex()
+        settings.esSearchIndex = component.getElasticsearchIndex()
         settings.esHost = component.getElasticsearchHost()
         settings.esPort = component.getElasticsearchPort().toInt()
         settings.esUsername = component.getElasticsearchUsername()
@@ -83,7 +83,7 @@ class ImcSettingsConfigurable : Configurable {
         val settings = ImcSettingsState.instance
         val component = mySettingsComponent!!
 
-        component.setElasticsearchIndex(settings.esSearcIndex)
+        component.setElasticsearchIndex(settings.esSearchIndex)
         component.setElasticsearchHost(settings.esHost)
         component.setElasticsearchPort(settings.esPort.toString())
         component.setElasticsearchUsername(settings.esUsername)

@@ -20,11 +20,14 @@
 
 package co.elastic.idea.plugin.imc.settings
 
+import co.elastic.idea.plugin.imc.ImcPluginUtils.Companion.INDEX_POSTFIX
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
+
+private const val DEFAULT_INDEX_NAME = "idea-metrics-indexing"
 
 /**
  * Supports storing the application settings in a persistent way.
@@ -35,7 +38,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
     storages = [Storage("IndexingMetricsCollectorPlugin.xml")]
 )
 class ImcSettingsState : PersistentStateComponent<ImcSettingsState?> {
-    var esSearcIndex = "idea-metrics-indexing"
+    var esSearchIndex = "${DEFAULT_INDEX_NAME}${INDEX_POSTFIX}"
     var esHost = ""
     var esPort = 9243
     var anonymize = true

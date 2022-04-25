@@ -20,16 +20,15 @@
 
 package co.elastic.idea.plugin.imc.modelbuilder
 
-import co.elastic.idea.plugin.imc.ImcPluginUtils
-import co.elastic.idea.plugin.imc.model.PlatformInfo
-import com.intellij.openapi.application.ApplicationInfo
+import com.intellij.util.indexing.UnindexedFilesUpdater
+import co.elastic.idea.plugin.imc.model.RuntimeInfo
 
-class PlatformInfoBuilder {
-    private val applicationInfo: ApplicationInfo = ApplicationInfo.getInstance()
-    private val applicationName : String = applicationInfo.versionName
-    private val applicationVersion : String = applicationInfo.fullVersion
-    private val buildNo : String = applicationInfo.build.toString()
-    private val pluginVersion = ImcPluginUtils.PLUGIN_VERSION
+class RuntimeBuilder {
+    private val runtime: Runtime = Runtime.getRuntime()
 
-    fun build() : PlatformInfo = PlatformInfo(applicationName, applicationVersion, buildNo, pluginVersion)
+    fun build() : RuntimeInfo = RuntimeInfo(
+        runtime.availableProcessors(),
+        runtime.maxMemory(),
+        runtime.freeMemory(),
+        UnindexedFilesUpdater.getNumberOfIndexingThreads())
 }

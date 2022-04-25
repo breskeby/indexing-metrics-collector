@@ -39,7 +39,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.util.indexing.diagnostic.ProjectIndexingHistory
 import com.intellij.util.indexing.diagnostic.ProjectIndexingHistoryListener
 import com.intellij.util.indexing.diagnostic.dto.toMillis
-import kotlinx.serialization.json.JsonNull.content
 import java.io.IOException
 import java.io.InputStream
 
@@ -55,7 +54,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         val project = projectIndexingHistory.project
         runBackgroundableTask("Uploading indexing metrics", project) {
             if (validBasicConfiguration(project)) {
-                val index = settingsState.esSearcIndex
+                val index = settingsState.esSearchIndex
                 withWarningNotifications("Error publishing indexing metrics", project) {
                     val client = elasticsearchClientFactory.newElasticsearchClient()
                     maybeInitializeIndex(project, client, index)
@@ -105,7 +104,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     private fun maybeCreateIndex(project: Project, client: ElasticsearchClient, index: String) {
         val elasticsearchIndexExists = elasticsearchIndexExists(client, index, project)
-        println("elasticsearchIndexExists = ${elasticsearchIndexExists} -- ${index}")
+        println("elasticsearchIndexExists = $elasticsearchIndexExists -- ${index}")
         if (!elasticsearchIndexExists) {
             informAboutIndexCreating(project, index)
             createIndexWithPredefinedMapping(client, index, project)

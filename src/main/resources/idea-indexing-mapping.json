@@ -12,6 +12,15 @@
               }
             }
           },
+          "isc-version" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
           "os" : {
             "properties" : {
               "arch" : {
@@ -19,7 +28,7 @@
                 "fields" : {
                   "keyword" : {
                     "type" : "keyword",
-                    "ignore_above" : 50
+                    "ignore_above" : 256
                   }
                 }
               },
@@ -28,7 +37,7 @@
                 "fields" : {
                   "keyword" : {
                     "type" : "keyword",
-                    "ignore_above" : 50
+                    "ignore_above" : 256
                   }
                 }
               },
@@ -37,9 +46,18 @@
                 "fields" : {
                   "keyword" : {
                     "type" : "keyword",
-                    "ignore_above" : 20
+                    "ignore_above" : 256
                   }
                 }
+              }
+            }
+          },
+          "plugin-version" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
               }
             }
           },
@@ -75,6 +93,34 @@
       },
       "interrupted" : {
         "type" : "boolean"
+      },
+      "normalizedIndexingReason" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "perIndexer" : {
+        "properties" : {
+          "providerName" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "totalIndexingTime" : {
+            "type" : "long"
+          },
+          "totalNumberOfFiles" : {
+            "type" : "long"
+          }
+        }
       },
       "platform" : {
         "properties" : {
@@ -122,6 +168,41 @@
           "keyword" : {
             "type" : "keyword",
             "ignore_above" : 256
+          }
+        }
+      },
+      "providerStatistics" : {
+        "properties" : {
+          "name" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "totalIndexingTime" : {
+            "type" : "long"
+          },
+          "totalNumberOfFiles" : {
+            "type" : "long"
+          }
+        }
+      },
+      "runtime" : {
+        "properties" : {
+          "availableProcessors" : {
+            "type" : "long"
+          },
+          "freeMemory" : {
+            "type" : "long"
+          },
+          "indexingThreads" : {
+            "type" : "long"
+          },
+          "maxMemory" : {
+            "type" : "long"
           }
         }
       },

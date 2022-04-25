@@ -26,6 +26,7 @@ import com.intellij.util.indexing.diagnostic.TimeMillis
 data class SimpleProjectIndexingEvent(
     val environment: Map<String, String>,
     val platform: PlatformInfo,
+    val runtime: RuntimeInfo,
     val projectName: @NlsSafe String,
     val indexingReason: String?,
     val totalUpdatingTime: TimeMillis,
@@ -41,3 +42,8 @@ data class PlatformInfo(val applicationName: String,
                         val version: String,
                         val buildNo: String,
                         val pluginVersion: String)
+
+data class RuntimeInfo(val availableProcessors: Int,
+                       val maxMemory: Long,
+                       val freeMemory: Long,
+                       val indexingThreads: Int)

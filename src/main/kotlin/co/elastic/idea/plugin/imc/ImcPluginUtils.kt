@@ -18,18 +18,21 @@
  *
  * */
 
-package co.elastic.idea.plugin.imc.modelbuilder
+package co.elastic.idea.plugin.imc
 
-import co.elastic.idea.plugin.imc.ImcPluginUtils
-import co.elastic.idea.plugin.imc.model.PlatformInfo
-import com.intellij.openapi.application.ApplicationInfo
+import com.intellij.ide.plugins.PluginManager
+import com.intellij.openapi.extensions.PluginId
 
-class PlatformInfoBuilder {
-    private val applicationInfo: ApplicationInfo = ApplicationInfo.getInstance()
-    private val applicationName : String = applicationInfo.versionName
-    private val applicationVersion : String = applicationInfo.fullVersion
-    private val buildNo : String = applicationInfo.build.toString()
-    private val pluginVersion = ImcPluginUtils.PLUGIN_VERSION
+class ImcPluginUtils private constructor() {
+    companion object {
+        val PLUGIN_VERSION : String = PluginManager.getInstance().findEnabledPlugin(
+            PluginId.getId("co.elastic.idea.indexingmetricscollector")
+        )!!.version
 
-    fun build() : PlatformInfo = PlatformInfo(applicationName, applicationVersion, buildNo, pluginVersion)
+        val INDEX_POSTFIX =  if(PLUGIN_VERSION.endsWith("SNAPSHOT")) {
+            "-debug-${PLUGIN_VERSION.replace('.', '-').lowercase()}"
+        } else {
+            ""
+        }
+    }
 }

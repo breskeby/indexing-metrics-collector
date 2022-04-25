@@ -26,7 +26,8 @@ import com.intellij.util.indexing.diagnostic.TimeMillis
 
 class ProjectIndexingEventModelBuilder(
     private val environmentBuilder: EnvironmentBuilder,
-    private val platformInfoBuilder: PlatformInfoBuilder
+    private val platformInfoBuilder: PlatformInfoBuilder,
+    private val runtimeBuilder: RuntimeBuilder
 ) {
 
     private lateinit var projectName: @NlsSafe String
@@ -92,10 +93,10 @@ class ProjectIndexingEventModelBuilder(
 
     // validate properties before building for proper error messages
     fun build(): SimpleProjectIndexingEvent {
-        environmentBuilder.build()
         return SimpleProjectIndexingEvent(
             environmentBuilder.build(),
             platformInfoBuilder.build(),
+            runtimeBuilder.build(),
             projectName,
             indexingReason,
             totalUpdatingTime,
@@ -111,7 +112,8 @@ class ProjectIndexingEventModelBuilder(
     companion object {
         fun builder(): ProjectIndexingEventModelBuilder = ProjectIndexingEventModelBuilder(
             EnvironmentBuilder(),
-            PlatformInfoBuilder()
+            PlatformInfoBuilder(),
+            RuntimeBuilder()
         )
     }
 
