@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# indexing metrics collector Changelog
+# Idea Indexing Metrics Collector Changelog
 
 ## [Unreleased]
 ### Added
