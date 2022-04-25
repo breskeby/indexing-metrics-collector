@@ -31,7 +31,7 @@ The captured data per indexing event includes
   - max available processors
   - idea java memory settings 
   - indexing thread count)
-- environment
+- environment info
   - user name (can be optionally anonymized)
   - host name (can be optionally anonymized)
   - os name
