@@ -22,8 +22,15 @@ The captured data per indexing event includes
 - update end
 - was full indexing (true / false)
 - was indexing interrupted (true / false)
-- plugin version
-- platform info (idea application name, version, build no)
+- platform info 
+  - idea application name 
+  - version 
+  - build number
+  - plugin version
+- runtime info 
+  - max available processors
+  - idea java memory settings 
+  - indexing thread count)
 - environment
   - user name (can be optionally anonymized)
   - host name (can be optionally anonymized)
