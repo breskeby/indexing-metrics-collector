@@ -3,8 +3,6 @@
 # indexing metrics collector Changelog
 
 ## [Unreleased]
-### Changed
-
 ### Added
 - Initial Release under elastic
 - Rebranded from initial spike 
