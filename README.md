@@ -38,7 +38,7 @@ The captured data per indexing event includes
   - os arch
   - os version
 
-The [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch)  mapping template can be found here: [elasticsearch index mapping](https://github.com/breskeby/indexing-metrics-collector/blob/main/src/main/resources/idea-indexing-mapping.json)
+The [elasticsearch](https://www.elastic.co/elasticsearch/elasticsearch)  mapping template can be found here: [elasticsearch index mapping](https://github.com/elastic/indexing-metrics-collector/blob/main/src/main/resources/idea-indexing-mapping.json)
 
 The idea for this came up when I heard first time about [shared project index](https://www.jetbrains.com/help/idea/shared-indexes.html#project-shared-indexes) for IntelliJ IDEA.
 If you want to know the impact of such a plugin you need to have hard numbers first. In a distributed team gathering these numbers are tricky so the idea
