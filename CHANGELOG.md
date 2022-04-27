@@ -3,6 +3,8 @@
 # Idea Indexing Metrics Collector Changelog
 
 ## [Unreleased]
+
+## [0.9.0]
 ### Added
 - Initial Release under elastic
 - Rebranded from initial spike 
