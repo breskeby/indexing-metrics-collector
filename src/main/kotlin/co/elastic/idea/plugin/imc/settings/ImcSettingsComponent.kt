@@ -20,14 +20,23 @@
 
 package co.elastic.idea.plugin.imc.settings
 
+import co.elastic.clients.elasticsearch._types.ElasticsearchException
+import co.elastic.idea.plugin.imc.elasticsearch.ElasticsearchClientFactory
+import co.elastic.idea.plugin.imc.elasticsearch.ElasticsearchConnectionDetails
+import co.elastic.idea.plugin.imc.elasticsearch.ElasticsearchConnectionDetails.AuthType
+import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.ui.Messages
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBPasswordField
 import com.intellij.ui.components.JBRadioButton
 import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
+import java.io.IOException
+import java.util.concurrent.atomic.AtomicReference
 import javax.swing.ButtonGroup
 import javax.swing.ButtonModel
+import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JPanel
 
@@ -55,6 +64,7 @@ class ImcSettingsComponent {
     private val accessTokenLabel = JBLabel("Elasticsearch Access Token: ")
     private val apiKeyLabel = JBLabel("Elasticsearch API Key: ")
     private val apiSecretLabel = JBLabel("Elasticsearch API Secret: ")
+    private val testConnectionButton = JButton("Check connection")
 
 
     init {
@@ -63,10 +73,13 @@ class ImcSettingsComponent {
         basicAuth.addActionListener { configureAuth(basicAuth.model) }
         accessTokenAuth.addActionListener { configureAuth(accessTokenAuth.model) }
         apiKeysAuth.addActionListener { configureAuth(apiKeysAuth.model) }
+        testConnectionButton.addActionListener { testConnection() }
         group.add(noAuth)
         group.add(basicAuth)
         group.add(accessTokenAuth)
         group.add(apiKeysAuth)
+
+
         panel = FormBuilder.createFormBuilder()
             .addLabeledComponent(JBLabel("Elasticsearch index: "), elasticsearchIndex, 1, false)
             .addLabeledComponent(JBLabel("Elasticsearch host: "), elasticsearchHost, 1, false)
@@ -87,6 +100,7 @@ class ImcSettingsComponent {
             .setFormLeftIndent(LEFT_INDENT)
             .addLabeledComponent(apiKeyLabel, elasticsearchApiKey, 1, false)
             .addLabeledComponent(apiSecretLabel, elasticsearchApiSecret, 1, false)
+            .addComponent(testConnectionButton, 1)
             .addComponentFillVertically(JPanel(), 0)
             .panel
 
@@ -243,6 +257,62 @@ class ImcSettingsComponent {
         elasticsearchApiSecret.text = text
     }
 
+
+    private fun testConnection() {
+        val connectionDetails = object : ElasticsearchConnectionDetails {
+            override fun getIndex(): String = elasticsearchIndex.text
+
+            override fun getHost(): String = elasticsearchHost.text
+
+            override fun getPort(): Int = Integer.parseInt(elasticsearchPort.text)
+
+            override fun getAuthType(): AuthType = AuthType.valueOf(authType.name);
+
+            override fun getUsername(): String = elasticsearchUsername.text
+
+            override fun getPassword(): String = String(elasticsearchPassword.password)
+
+            override fun getAccessToken(): String = elasticsearchAccessToken.text
+
+            override fun getApiKey(): String = elasticsearchApiKey.text
+
+            override fun getApiSecret(): String = String(elasticsearchApiSecret.password)
+        }
+
+        val exceptionReference = AtomicReference<Exception>()
+        val indexExists = AtomicReference<Boolean>()
+        ProgressManager.getInstance().runProcessWithProgressSynchronously({
+            try {
+                val elasticsearchClientFactory = ElasticsearchClientFactory(connectionDetails)
+                indexExists.set(elasticsearchClientFactory.checkConnection(elasticsearchIndex.text))
+            } catch (e: IOException) {
+                exceptionReference.set(e)
+            } catch (e: ElasticsearchException) {
+                exceptionReference.set(e)
+            }
+        }, "Checking Elasticsearch Connection...", true, null)
+
+        if(exceptionReference.get() == null) {
+            if(indexExists.get()) {
+                Messages.showMessageDialog(
+                    panel,
+                    "Connection succesful",
+                    "Elasticsearch connection check",
+                    Messages.getInformationIcon()
+                )
+            } else {
+                Messages.showMessageDialog(
+                    panel,
+                    "Index '${connectionDetails.getIndex()}' does not exist (yet)",
+                    "Elasticsearch connection check",
+                    Messages.getWarningIcon()
+                )
+            }
+        } else {
+            Messages.showErrorDialog(panel, exceptionReference.get().message)
+        }
+
+    }
 
     companion object {
         private const val LEFT_INDENT = 25

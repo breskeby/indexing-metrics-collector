@@ -64,4 +64,5 @@ class ImcSettingsState : PersistentStateComponent<ImcSettingsState?> {
         val instance: ImcSettingsState
             get() = ApplicationManager.getApplication().getService(ImcSettingsState::class.java)
     }
+
 }

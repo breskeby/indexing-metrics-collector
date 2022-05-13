@@ -21,9 +21,9 @@
 package co.elastic.idea.plugin.imc.elasticsearch
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient
+import co.elastic.clients.elasticsearch.indices.ExistsRequest
 import co.elastic.clients.json.jackson.JacksonJsonpMapper
 import co.elastic.clients.transport.rest_client.RestClientTransport
-import co.elastic.idea.plugin.imc.settings.ImcSettingsState
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import org.apache.http.Header
@@ -38,7 +38,7 @@ import org.elasticsearch.client.RestClientBuilder
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-class ElasticsearchClientFactory(private val state: ImcSettingsState) {
+class ElasticsearchClientFactory(private val details: ElasticsearchConnectionDetails) {
 
     private val jacksonJsonpMapper = JacksonJsonpMapper()
 
@@ -53,35 +53,35 @@ class ElasticsearchClientFactory(private val state: ImcSettingsState) {
 
     private fun newRestClientTransport(): RestClientTransport {
         val restClientBuilder = RestClient.builder(
-            HttpHost(state.esHost, state.esPort, "https")
+            HttpHost(details.getHost(), details.getPort(), "https")
         )
         return RestClientTransport(withAuthentication(restClientBuilder).build(), jacksonJsonpMapper)
     }
 
     private fun withAuthentication(restClientBuilder: RestClientBuilder): RestClientBuilder {
-        when (state.authType) {
-            ImcSettingsState.AuthType.BASIC_AUTH -> {
+        when (details.getAuthType()) {
+            ElasticsearchConnectionDetails.AuthType.BASIC_AUTH -> {
                 val credentialsProvider: CredentialsProvider = BasicCredentialsProvider()
                 credentialsProvider.setCredentials(
                     AuthScope.ANY,
-                    UsernamePasswordCredentials(state.esUsername, state.esPassword)
+                    UsernamePasswordCredentials(details.getUsername(), details.getPassword())
                 )
                 restClientBuilder.setHttpClientConfigCallback { httpClientBuilder ->
                     httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
                 }
             }
-            ImcSettingsState.AuthType.ACCESS_TOKEN_AUTH -> {
+            ElasticsearchConnectionDetails.AuthType.ACCESS_TOKEN_AUTH -> {
                 val defaultHeaders: Array<Header> = arrayOf(
                     BasicHeader(
                         "Authorization",
-                        "Bearer ${state.esAccessToken}"
+                        "Bearer ${details.getAccessToken()}"
                     )
                 )
                 restClientBuilder.setDefaultHeaders(defaultHeaders)
             }
-            ImcSettingsState.AuthType.API_KEYS_AUTH -> {
+            ElasticsearchConnectionDetails.AuthType.API_KEYS_AUTH -> {
                 val apiKeyAuth: String = Base64.getEncoder().encodeToString(
-                    (state.esApiKey + ":" + state.esApiSecret).toByteArray(StandardCharsets.UTF_8)
+                    (details.getApiKey() + ":" + details.getApiSecret()).toByteArray(StandardCharsets.UTF_8)
                 )
                 val defaultHeaders = arrayOf<Header>(
                     BasicHeader(
@@ -91,11 +91,17 @@ class ElasticsearchClientFactory(private val state: ImcSettingsState) {
                 )
                 restClientBuilder.setDefaultHeaders(defaultHeaders)
             }
-            ImcSettingsState.AuthType.NO_AUTH -> {
+            ElasticsearchConnectionDetails.AuthType.NO_AUTH -> {
                 // nothing need to be done
             }
         }
         return restClientBuilder
+    }
+    fun checkConnection(indexName : String) : Boolean {
+        val client = newElasticsearchClient()
+        return client.indices().exists(
+            ExistsRequest.of { b: ExistsRequest.Builder -> b.index(indexName) }
+        ).value()
     }
 }
 

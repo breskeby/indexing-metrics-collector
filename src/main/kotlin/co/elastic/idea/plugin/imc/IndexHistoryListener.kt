@@ -26,6 +26,7 @@ import co.elastic.clients.elasticsearch.core.IndexRequest
 import co.elastic.clients.elasticsearch.indices.CreateIndexRequest
 import co.elastic.clients.elasticsearch.indices.ExistsRequest
 import co.elastic.idea.plugin.imc.elasticsearch.ElasticsearchClientFactory
+import co.elastic.idea.plugin.imc.elasticsearch.SettingsStateBasedConnectionDetails
 import co.elastic.idea.plugin.imc.model.SimpleProjectIndexingEvent
 import co.elastic.idea.plugin.imc.modelbuilder.ProjectIndexingEventModelBuilder
 import co.elastic.idea.plugin.imc.settings.ImcSettingsState
@@ -46,7 +47,9 @@ import java.io.InputStream
 class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     private val settingsState = ImcSettingsState.instance
-    private val elasticsearchClientFactory = ElasticsearchClientFactory(settingsState)
+    private val elasticsearchClientFactory = ElasticsearchClientFactory(
+        SettingsStateBasedConnectionDetails(settingsState)
+    )
 
     private var initializedIndex = ""
 
@@ -104,7 +107,6 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     private fun maybeCreateIndex(project: Project, client: ElasticsearchClient, index: String) {
         val elasticsearchIndexExists = elasticsearchIndexExists(client, index, project)
-        println("elasticsearchIndexExists = $elasticsearchIndexExists -- ${index}")
         if (!elasticsearchIndexExists) {
             informAboutIndexCreating(project, index)
             createIndexWithPredefinedMapping(client, index, project)
