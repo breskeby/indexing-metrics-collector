@@ -41,6 +41,7 @@ class ImcSettingsState : PersistentStateComponent<ImcSettingsState?> {
     var esSearchIndex = "${DEFAULT_INDEX_NAME}${INDEX_POSTFIX}"
     var esHost = ""
     var esPort = 9243
+    var useHttp = false
     var anonymize = true
     var esUsername = ""
     var esPassword = ""

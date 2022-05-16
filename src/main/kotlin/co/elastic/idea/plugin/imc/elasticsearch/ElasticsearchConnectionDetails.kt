@@ -20,19 +20,19 @@
 
 package co.elastic.idea.plugin.imc.elasticsearch
 
+@Suppress("ComplexInterface")
 interface ElasticsearchConnectionDetails {
 
     fun getIndex() : String
     fun getHost() : String
     fun getPort() : Int
     fun getAuthType() : AuthType
-
     fun getUsername() : String
     fun getPassword() : String
     fun getAccessToken() : String
-
     fun getApiKey(): String
     fun getApiSecret(): String
+    fun useHttp(): Boolean
 
     enum class AuthType {
         NO_AUTH, BASIC_AUTH, ACCESS_TOKEN_AUTH, API_KEYS_AUTH

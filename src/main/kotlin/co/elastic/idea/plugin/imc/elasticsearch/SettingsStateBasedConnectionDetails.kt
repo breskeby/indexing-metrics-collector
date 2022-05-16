@@ -35,4 +35,5 @@ class SettingsStateBasedConnectionDetails(val state: ImcSettingsState) : Elastic
     override fun getAccessToken(): String = state.esAccessToken
     override fun getApiKey(): String = state.esApiKey
     override fun getApiSecret(): String = state.esApiSecret
+    override fun useHttp(): Boolean = state.useHttp
 }

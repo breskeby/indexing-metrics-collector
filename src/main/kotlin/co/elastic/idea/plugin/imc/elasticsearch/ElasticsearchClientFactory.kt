@@ -52,8 +52,9 @@ class ElasticsearchClientFactory(private val details: ElasticsearchConnectionDet
     }
 
     private fun newRestClientTransport(): RestClientTransport {
+        val protocol = if(details.useHttp()) "http" else "https"
         val restClientBuilder = RestClient.builder(
-            HttpHost(details.getHost(), details.getPort(), "https")
+            HttpHost(details.getHost(), details.getPort(), protocol)
         )
         return RestClientTransport(withAuthentication(restClientBuilder).build(), jacksonJsonpMapper)
     }
