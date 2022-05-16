@@ -61,6 +61,7 @@ class ImcSettingsConfigurable : Configurable {
             settings.esPassword.toCharArray()
         )
         modified = modified or (mySettingsComponent?.getAnonymize() != settings.anonymize)
+        modified = modified or (mySettingsComponent?.getUseHTTP() != settings.http)
         return modified
     }
 
@@ -77,6 +78,7 @@ class ImcSettingsConfigurable : Configurable {
         settings.esApiSecret = String(component.getElasticsearchApiSecret())
         settings.authType = component.authType
         settings.anonymize = component.getAnonymize()
+        settings.http = component.getUseHTTP()
     }
 
     override fun reset() {
@@ -93,6 +95,7 @@ class ImcSettingsConfigurable : Configurable {
         component.setElasticsearchApiSecret(settings.esApiSecret)
         component.authType = settings.authType
         component.setAnonymize(settings.anonymize)
+        component.setUseHTTP(settings.http)
     }
 
     override fun disposeUIResources() {

@@ -38,6 +38,7 @@ class ImcSettingsState : PersistentStateComponent<ImcSettingsState?> {
     var esSearcIndex = "idea-indexing"
     var esHost = ""
     var esPort = 9243
+    var http = false
     var anonymize = true
     var esUsername = ""
     var esPassword = ""

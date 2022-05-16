@@ -44,6 +44,7 @@ class ImcSettingsComponent {
     private val elasticsearchAccessToken = JBTextField()
     private val elasticsearchApiKey = JBTextField()
     private val elasticsearchApiSecret = JBPasswordField()
+    private val useHttp = JBCheckBox("Use HTTP (HTTPS is recommended)")
     private val anonymize = JBCheckBox("Anonymize user data")
     private val noAuth = JBRadioButton("No authentication")
     private val basicAuth = JBRadioButton("Basic Authentication")
@@ -58,6 +59,7 @@ class ImcSettingsComponent {
 
 
     init {
+        useHttp.toolTipText = "Use HTTP as protocol. HTTPS is highly recommended"
         anonymize.toolTipText = "hashes system user and host name before uploading"
         noAuth.addActionListener { configureAuth(noAuth.model) }
         basicAuth.addActionListener { configureAuth(basicAuth.model) }
@@ -71,6 +73,7 @@ class ImcSettingsComponent {
             .addLabeledComponent(JBLabel("Elasticsearch index: "), elasticsearchIndex, 1, false)
             .addLabeledComponent(JBLabel("Elasticsearch host: "), elasticsearchHost, 1, false)
             .addLabeledComponent(JBLabel("Elasticsearch port: "), elasticsearchPort, 1, false)
+            .addComponent(useHttp, 1)
             .addComponent(anonymize, 1)
             .addSeparator(SEPARATOR_INSET)
             .addComponent(noAuth, 1)
@@ -209,6 +212,14 @@ class ImcSettingsComponent {
 
     fun setElasticsearchPassword(newText: String) {
         elasticsearchPassword.text = newText
+    }
+
+    fun getUseHTTP(): Boolean {
+        return useHttp.isSelected
+    }
+
+    fun setUseHTTP(newStatus: Boolean) {
+        useHttp.isSelected = newStatus
     }
 
     fun getAnonymize(): Boolean {

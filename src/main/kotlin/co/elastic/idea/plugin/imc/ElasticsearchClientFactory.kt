@@ -52,8 +52,9 @@ class ElasticsearchClientFactory(private val state: ImcSettingsState) {
     }
 
     private fun newRestClientTransport(): RestClientTransport {
+        val protocol = if(state.http) "http" else "https"
         val restClientBuilder = RestClient.builder(
-            HttpHost(state.esHost, state.esPort, "https")
+            HttpHost(state.esHost, state.esPort, protocol)
         )
         return RestClientTransport(withAuthentication(restClientBuilder).build(), jacksonJsonpMapper)
     }
