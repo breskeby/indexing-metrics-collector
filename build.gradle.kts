@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation("co.elastic.clients:elasticsearch-java:8.1.2")
+    implementation("co.elastic.clients:elasticsearch-java:7.17.3")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.2")
