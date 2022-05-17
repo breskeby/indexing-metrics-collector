@@ -3,6 +3,8 @@
 # Idea Indexing Metrics Collector Changelog
 
 ## [Unreleased]
+### Changed
+- Add support for elasticsearch 7.x
 
 ## [0.9.1]
 ### Added
