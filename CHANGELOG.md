@@ -3,6 +3,9 @@
 # Idea Indexing Metrics Collector Changelog
 
 ## [Unreleased]
+### Added
+- [Check connection details in preference page](https://github.com/elastic/idea-indexing-metrics-collector/issues/5) 
+- [Option to allow plain http to connect to elasticsearch](https://github.com/breskeby/indexing-stats-collector/issues/12)
 
 ## [0.9.0]
 ### Added
