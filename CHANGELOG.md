@@ -6,7 +6,7 @@
 
 ## [0.9.2]
 ### Changed
-- Add support for elasticsearch 7.x
+- [Add support for elasticsearch 7.x](https://github.com/elastic/idea-indexing-metrics-collector/issues/9)
 
 ## [0.9.1]
 ### Added
