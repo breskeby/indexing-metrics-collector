@@ -3,6 +3,8 @@
 # Idea Indexing Metrics Collector Changelog
 
 ## [Unreleased]
+
+## [0.9.2]
 ### Changed
 - Add support for elasticsearch 7.x
 
@@ -20,6 +22,7 @@
   - [API keys authentication](https://github.com/breskeby/indexing-stats-collector/issues/2)
 - [Make elasticsearch index configurable](https://github.com/breskeby/indexing-stats-collector/issues/5)
 - Add runtime data
+
 
 
 ### Changed
