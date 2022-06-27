@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugins>
+    <plugin
+            id="co.elastic.idea.indexingmetricscollector"
+            url="https://github.com/elastic/idea-indexing-metrics-collector/releases/download/v0.10.0/indexing-metrics-collector-0.10.0.zip"
+            version="0.10.0">
+        <!--
+        The <idea-version> element (required) must match the same element
+        in the plugin.xml file.
+        -->
+        <idea-version since-build="221" until-build="222.*"/>
+        <name>indexing-metrics-collector</name>
+        <description>
+<![CDATA[
+
+Allows gathering project scanning & indexing metrics for further analysis by ingesting them into an elasticsearch cluster.<br/>
+<ul>
+<li><a href="https://github.com/elastic/idea-indexing-metrics-collector">Project Home</a></li>
+<li><a href="https://github.com/elastic/idea-indexing-metrics-collector/issues">Issue Tracker</a></li>
+</ul>
+
+]]>
+        </description>
+        <change-notes>
+<![CDATA[
+
+Please visit <a href="https://github.com/elastic/idea-indexing-metrics-collector/releases">Release Overview</a> for further release notes
+detailed change notes.
+
+]]>
+        </change-notes>
+
+    </plugin>
+</plugins>
