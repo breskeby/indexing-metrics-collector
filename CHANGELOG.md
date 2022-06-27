@@ -3,6 +3,8 @@
 # Idea Indexing Metrics Collector Changelog
 
 ## [Unreleased]
+
+## [0.10.0]
 ### Changed
 - [Fix compatiblity with Idea 2022.1.3](https://github.com/elastic/idea-indexing-metrics-collector/issues/11)
 
@@ -24,6 +26,7 @@
   - [API keys authentication](https://github.com/breskeby/indexing-stats-collector/issues/2)
 - [Make elasticsearch index configurable](https://github.com/breskeby/indexing-stats-collector/issues/5)
 - Add runtime data
+
 
 
 
