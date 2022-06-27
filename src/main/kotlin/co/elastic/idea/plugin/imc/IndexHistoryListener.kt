@@ -69,7 +69,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
                                     .withAnonymizedData(settingsState.anonymize)
                                     .withProjectName(project.name)
                                     .withIndexingReason(projectIndexingHistory.indexingReason)
-                                    .withWasFullIndex(projectIndexingHistory.times.wasFullIndexing)
+                                    .withWasFullIndex(projectIndexingHistory.times.scanningType.isFull)
                                     .withWasInterrupted(projectIndexingHistory.times.wasInterrupted)
                                     .withTotalUpdatingTime(projectIndexingHistory.times.totalUpdatingTime.toMillis())
                                     .withScanFilesDuration(projectIndexingHistory.times.scanFilesDuration.toMillis())
