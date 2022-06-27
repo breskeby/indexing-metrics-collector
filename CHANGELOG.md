@@ -3,6 +3,8 @@
 # Idea Indexing Metrics Collector Changelog
 
 ## [Unreleased]
+### Changed
+- [Fix compatiblity with Idea 2022.1.3](https://github.com/elastic/idea-indexing-metrics-collector/issues/11)
 
 ## [0.9.2]
 ### Changed
