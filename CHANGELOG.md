@@ -3,6 +3,8 @@
 # Idea Indexing Metrics Collector Changelog
 
 ## [Unreleased]
+### Changed
+- Mark compatible with Idea 2022.2
 
 ## [0.10.0]
 ### Changed
