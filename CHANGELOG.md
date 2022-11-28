@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Changed
+- Require 2022.2
+
 ## [0.10.1]
 ### Changed
 - Mark compatible with Idea 2022.2
