@@ -56,12 +56,14 @@ for this plugin was born.
 - From plugin repository:
 
   - In <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Manage plugin repositories...</kbd> 
-  add [https://raw.githubusercontent.com/elastic/indexing-metrics-collector/main/updatePlugins-213.xml](https://raw.githubusercontent.com/breskeby/indexing-metrics-collector/main/updatePlugins-213.xml)
+  add 
+    - starting with 2022.1.3 use [https://raw.githubusercontent.com/elastic/indexing-metrics-collector/main/updatePlugins-213.xml](https://raw.githubusercontent.com/idea/indexing-metrics-collector/main/updatePlugins-213.xml)
+    - before 2022.1.3 use [https://raw.githubusercontent.com/elastic/indexing-metrics-collector/main/updatePlugins-221.xml](https://raw.githubusercontent.com/idea/indexing-metrics-collector/main/updatePlugins-221.xml)
   - Install <b>indexing-metrics-collector</b> plugin
 
 - Manually:
 
-  Download the [latest release](https://github.com/breskeby/indexing-metrics-collector/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/idea/indexing-metrics-collector/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 ## Configuration

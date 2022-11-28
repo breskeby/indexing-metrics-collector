@@ -53,7 +53,7 @@ class ImcSettingsComponent {
     private val elasticsearchAccessToken = JBTextField()
     private val elasticsearchApiKey = JBTextField()
     private val elasticsearchApiSecret = JBPasswordField()
-    private val useHttp = JBCheckBox("Use HTTP (HTTPS is recommended)")
+    private val useHttp = JBCheckBox("Use HTTP (HTTPS is the default)")
     private val anonymize = JBCheckBox("Anonymize user data")
     private val noAuth = JBRadioButton("No authentication")
     private val basicAuth = JBRadioButton("Basic Authentication")

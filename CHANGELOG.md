@@ -3,6 +3,23 @@
 # Idea Indexing Metrics Collector Changelog
 
 ## [Unreleased]
+
+### Changed
+- Require 2022.2
+
+## [0.10.1]
+### Changed
+- Mark compatible with Idea 2022.2
+
+## [0.10.0]
+### Changed
+- [Fix compatiblity with Idea 2022.1.3](https://github.com/elastic/idea-indexing-metrics-collector/issues/11)
+
+## [0.9.2]
+### Changed
+- [Add support for elasticsearch 7.x](https://github.com/elastic/idea-indexing-metrics-collector/issues/9)
+
+## [0.9.1]
 ### Added
 - [Check connection details in preference page](https://github.com/elastic/idea-indexing-metrics-collector/issues/5) 
 - [Option to allow plain http to connect to elasticsearch](https://github.com/breskeby/indexing-stats-collector/issues/12)
@@ -21,4 +38,3 @@
 - Renamed default index name to `idea-metrics-indexing`
 - Improve elasticsearch connection error handling
 - Do not use JDK 8 specific classes in user data anymizer
-

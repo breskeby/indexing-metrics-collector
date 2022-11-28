@@ -69,7 +69,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
                                     .withAnonymizedData(settingsState.anonymize)
                                     .withProjectName(project.name)
                                     .withIndexingReason(projectIndexingHistory.indexingReason)
-                                    .withWasFullIndex(projectIndexingHistory.times.wasFullIndexing)
+                                    .withWasFullIndex(projectIndexingHistory.times.scanningType.isFull)
                                     .withWasInterrupted(projectIndexingHistory.times.wasInterrupted)
                                     .withTotalUpdatingTime(projectIndexingHistory.times.totalUpdatingTime.toMillis())
                                     .withScanFilesDuration(projectIndexingHistory.times.scanFilesDuration.toMillis())
@@ -107,7 +107,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     private fun maybeCreateIndex(project: Project, client: ElasticsearchClient, index: String) {
         val elasticsearchIndexExists = elasticsearchIndexExists(client, index, project)
-        if (!elasticsearchIndexExists) {
+        if (elasticsearchIndexExists != null && elasticsearchIndexExists) {
             informAboutIndexCreating(project, index)
             createIndexWithPredefinedMapping(client, index, project)
         }
@@ -118,18 +118,18 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         handleConnectionError({
             client.indices().create(CreateIndexRequest.of { b: CreateIndexRequest.Builder ->
                 b.index(index).withJson(input)
-            }).acknowledged()!!
+            }).acknowledged()
         }, project)
     }
 
-    private fun elasticsearchIndexExists(client: ElasticsearchClient, index: String, project: Project): Boolean =
+    private fun elasticsearchIndexExists(client: ElasticsearchClient, index: String, project: Project): Boolean? =
         handleConnectionError({
             client.indices().exists(
                 ExistsRequest.of { b: ExistsRequest.Builder -> b.index(index) }
             ).value()
         }, project)
 
-    private fun handleConnectionError(elasticSearchAction: () -> Boolean, project: Project): Boolean =
+    private fun handleConnectionError(elasticSearchAction: () -> Boolean?, project: Project): Boolean? =
         try {
             elasticSearchAction.invoke()
         } catch (e: IOException) {
@@ -149,6 +149,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         } catch (e: ElasticsearchException) {
             Logger.getInstance(javaClass).warn("Error occurred communicating with elasticsearch", e);
             sentNotification(project, content, e.error().reason(), NotificationType.WARNING)
+//            sentNotification(project, content, "e.error().reason()", NotificationType.WARNING)
         } catch (e: IOException) {
             Logger.getInstance(javaClass).error("Error connecting to elasticsearch endpoint", e)
             sentNotification(project, content, NotificationType.ERROR)
@@ -164,13 +165,19 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
     private fun sentNotification(
         project: Project,
         title: String,
-        content: String,
+        content: String?,
         type: NotificationType = NotificationType.WARNING
     ) {
         sentNotification(project) {
-            it.createNotification(title, content, type).addAction(
-                ShowSettingsAction("Configure Elasticsearch connection...")
-            )
+            if (content.isNullOrBlank()) {
+                it.createNotification(title, type).addAction(
+                    ShowSettingsAction("Configure Elasticsearch connection...")
+                )
+            } else {
+                it.createNotification(title, content, type).addAction(
+                    ShowSettingsAction("Configure Elasticsearch connection...")
+                )
+            }
         }
     }
 
