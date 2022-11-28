@@ -12,9 +12,9 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.6.10"
     id("io.gitlab.arturbosch.detekt") version "1.19.0"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.5.2"
+    id("org.jetbrains.intellij") version "1.10.0"
     // Gradle Changelog Plugin
-    id("org.jetbrains.changelog") version "1.3.1"
+    id("org.jetbrains.changelog") version "2.0.0"
     // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
 }
@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation("co.elastic.clients:elasticsearch-java:7.17.3")
+    implementation("co.elastic.clients:elasticsearch-java:7.17.7")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.2")
