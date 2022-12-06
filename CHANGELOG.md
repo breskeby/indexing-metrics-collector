@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+### Changed
+- Support 2022.3
+
 ## 0.10.3 - 2022-12-01
 
 ### Changed
