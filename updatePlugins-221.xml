@@ -2,13 +2,13 @@
 <plugins>
     <plugin
             id="co.elastic.idea.indexingmetricscollector"
-            url="https://github.com/elastic/idea-indexing-metrics-collector/releases/download/v0.10.3/indexing-metrics-collector-0.10.3.zip"
-            version="0.10.3">
+            url="https://github.com/elastic/idea-indexing-metrics-collector/releases/download/v0.10.4/indexing-metrics-collector-0.10.4.zip"
+            version="0.10.4">
         <!--
         The <idea-version> element (required) must match the same element
         in the plugin.xml file.
         -->
-        <idea-version since-build="221" until-build="222.*"/>
+        <idea-version since-build="221" until-build="223.*"/>
         <name>indexing-metrics-collector</name>
         <description>
 <![CDATA[
