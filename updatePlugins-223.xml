@@ -2,8 +2,8 @@
 <plugins>
     <plugin
             id="co.elastic.idea.indexingmetricscollector"
-            url="https://github.com/elastic/idea-indexing-metrics-collector/releases/download/v0.10.4/indexing-metrics-collector-0.10.4.zip"
-            version="0.10.4">
+            url="https://github.com/elastic/idea-indexing-metrics-collector/releases/download/v0.10.4/indexing-metrics-collector-0.10.5.zip"
+            version="0.10.5">
         <!--
         The <idea-version> element (required) must match the same element
         in the plugin.xml file.
