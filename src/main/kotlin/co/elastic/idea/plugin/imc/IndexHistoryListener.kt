@@ -107,7 +107,7 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
 
     private fun maybeCreateIndex(project: Project, client: ElasticsearchClient, index: String) {
         val elasticsearchIndexExists = elasticsearchIndexExists(client, index, project)
-        if (elasticsearchIndexExists != null && elasticsearchIndexExists) {
+        if (elasticsearchIndexExists != null && elasticsearchIndexExists == false) {
             informAboutIndexCreating(project, index)
             createIndexWithPredefinedMapping(client, index, project)
         }
@@ -149,7 +149,6 @@ class IndexHistoryListener : ProjectIndexingHistoryListener {
         } catch (e: ElasticsearchException) {
             Logger.getInstance(javaClass).warn("Error occurred communicating with elasticsearch", e);
             sentNotification(project, content, e.error().reason(), NotificationType.WARNING)
-//            sentNotification(project, content, "e.error().reason()", NotificationType.WARNING)
         } catch (e: IOException) {
             Logger.getInstance(javaClass).error("Error connecting to elasticsearch endpoint", e)
             sentNotification(project, content, NotificationType.ERROR)
